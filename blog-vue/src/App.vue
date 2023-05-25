@@ -1,133 +1,179 @@
 <template>
 
+<div id="app">
 
-<div class="about">
-    <h1 class="title is-6"> Tech | Healty Living | News | Buy Books   </h1>
-</div>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="">
-       <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-    </a>
+<div class="nav-container">
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" @click="toggleNavBar">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
+<nav class="my-nav">
+
+  <div class="main-nav">
+      <router-link to="/home-page"><h1 class="title is-5 my-nav-link">Home</h1></router-link>
+
+      <router-link to="/user-profile"><h1 class="title is-5 my-nav-link">Profile</h1></router-link>
+
+
+      <!-- categories -->
+      <div class="dropdown is-hoverable ">
+        <div class="dropdown-trigger">
+           <h1 class="title is-5 my-nav-link"><font-awesome-icon icon="fa-solid fa-arrow-down" /> Categories</h1>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+          <div class="dropdown-content">
+            <div class="dropdown-item">
+                <router-link :to="{ name: 'search-book-by-genre', params: { genre: 'Horror' }}" class="navbar-item" ><h1 class="title is-5" >Horror</h1></router-link>
+                <router-link :to="{ name: 'search-book-by-genre', params: { genre: 'Health' }}" class="navbar-item" ><h1 class="title is-5" >Health</h1></router-link>
+                <router-link :to="{ name: 'search-book-by-genre', params: { genre: 'Adventure' }}" class="navbar-item" ><h1 class="title is-5" >Adventure</h1></router-link>
+                <router-link :to="{ name: 'search-book-by-genre', params: { genre: 'Thriller' }}" class="navbar-item" ><h1 class="title is-5" >Thriller</h1></router-link>
+                <router-link :to="{ name: 'search-book-by-genre', params: { genre: 'Romance' }}" class="navbar-item" ><h1 class="title is-5" >Romance</h1></router-link>
+                <router-link :to="{ name: 'search-book-by-genre', params: { genre: 'Crime' }}" class="navbar-item" ><h1 class="title is-5" >Crime</h1></router-link>
+                <router-link :to="{ name: 'search-book-by-genre', params: { genre: 'Science-Fiction' }}" class="navbar-item"><h1 class="title is-5" >Science Fiction</h1></router-link> 
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu" ref="xxx"> 
-    <div class="navbar-start">
-      <!-- <a class="navbar-item"> -->
-        <router-link to="/home-page" class="navbar-item"><h1 class="title is-5">Home</h1></router-link>
-      <!-- </a> -->
+      <!-- popout basket window  -->
+      <div class="basket-container"  @mouseover="showBasket" @mouseleave="hideBasket">
+        <div class="basket-icon">
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" size="3x"/>
+          <h1 class="title is-2">{{$store.state.count}}</h1>  
+        </div>
+        <div class="popout-basket" v-show="basket">
+          <div class="popout-basket-button" v-if="$store.state.totalPrice.toFixed(2) > 1">
+            <button class="button is-fullwidth is-success is-large" @click="showModalApp">checkout £{{$store.state.totalPrice.toFixed(2)}}</button>
+          </div>
+          <div class="popout-basket-button" v-else>
+            <h1 class="title is-1">There are not any books in the basket yet :(</h1>
+          </div>
+          <div class="basket-items-container">
+            <div  v-for="item , index in $store.state.basketList">
+              <div class="basket-items">
+                <div>
+                  <img :src="item['book-photo']" alt="" width="70">
+                  <p>{{item['book-name']}}</p>       
+                </div>
+                <div>
+                  <p class="basket-paragraf-price">£{{item['price']}}</p>
+                  <button class="button is-small is-danger is-rounded remove-button-basket" @click="removeFromBasket(index,item['slug']); subtractPrice(item['price']); removeBookPopUpMsg()">remove</button>  
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <!-- <a class="navbar-item"> -->
-        <router-link to="/about" class="navbar-item"><h1 class="title is-5">About</h1></router-link>
-      <!-- </a> -->
 
-      <!-- <a class="navbar-item"> -->
-        <router-link to="/user-profile" class="navbar-item"><h1 class="title is-5">My profile</h1></router-link>
-      <!-- </a> -->
-      <router-link to="/exe" class="navbar-item"><h1 class="title is-5">exe</h1></router-link>
+  <div class="modal" ref="modalApp">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head is-flex is-justify-content-space-between">
+        <div><p class="modal-card-title">you're buying {{$store.state.count}} book</p></div> 
+        <div><p class="modal-card-title has-text-dark has-text-weight-bold">total: {{$store.state.totalPrice.toFixed(2)}}</p></div> 
+      </header>
+      <section class="modal-card-body">
+        <div class="is-flex m-2" v-for="book in $store.state.basketList">
+          <img :src="book['book-photo']" width="70">
+          <div>
+            <h1 class="title is-5 is-italic ml-3">{{book['book-name']}}</h1>
+            <h1 class="title is-5 is-italic ml-3">£{{book['price']}}</h1>
+          </div>
+        </div>
+        
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" @click="removeModalApp"><router-link to="/books-checkout">Confirm</router-link></button>
+        <button class="button is-danger is-outlined" @click="removeModalApp">Cancel</button>
+      </footer>
+    </div>
+  </div>
 
-      <div class="navbar-item  is-hoverable  has-dropdown">  
-        <a class="navbar-link">
-          <h1 class="title is-5">Categories</h1>
+
+  <div class="navbar-end" v-if="$store.state.userId == null">
+    <div class="navbar-item">
+      <div class="buttons">
+        <button class="button"><router-link to="/register"><h1 class="title is-5">Sing-up</h1></router-link></button>
+        <button class="button"><router-link to="/login"><h1 class="title is-5">Login</h1></router-link></button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="username-photo-container-main" v-show="$store.state.userId != null">
+    <div class="username-photo-container">
+      <div class="username-photo" @mouseover="showLogout" v-if="user">
+        <figure class="image is-48x48 user-image">
+          <img :src="$store.state.userImage" class="is-rounded">
+        </figure>
+
+        <div v-show="$store.state.userId != null" class="user-username">
+          <h3 class="title is-3">{{$store.state.username}}</h3>
+        </div>
+      </div>
+
+      <div @mouseleave="hideLogout" class="logout-icon" v-if="Logout">
+        <a class="button is-info logout-button is-fullwidth" @click="logout">
+          <span class="icon">
+            <font-awesome-icon icon="fa-solid fa-right-from-bracket" size="2x"/>
+          </span>
+          <h1 class="title is-5" style="color:white;"> log me out</h1>
         </a>
-
-        <div class="navbar-dropdown">
-          <!-- <a class="navbar-item"> -->
-            <router-link to="/home-page" class=""><h1 class="title is-5 navbar-item">Tech</h1></router-link>
-          <!-- </a> -->
-          <!-- <a class="navbar-item"> -->
-            <router-link to="/home-page" class="navbar-item"><h1 class="title is-5">Healty living</h1></router-link>
-          <!-- </a> -->
-          <!-- <a class="navbar-item"> -->
-            <router-link to="/home-page" class="navbar-item"><h1 class="title is-5">News</h1></router-link>
-          <!-- </a> -->
-          <!-- <a class="navbar-item"> -->
-            <router-link to="/home-page" class="navbar-item"><h1 class="title is-5">Books</h1></router-link>
-          <!-- </a> -->
-        </div>
       </div>
     </div>
-
-    <div class="navbar-end" v-show="userLoggedIn == null ">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light">
-            Log in
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div v-show="userLoggedIn != null ">
-      <h3 class="title is-1">Hi {{userLoggedIn}}</h3>
-    </div>
-
-
   </div>
 
-    <figure class="image is-96x96">
-      <img :src="userPhoto" class="is-rounded">
-    </figure>
+
+
+  <div class="message-pop-out" v-show="$store.state.popOutMsg != null" >
+     <h1 class="title is-4 " >{{$store.state.popOutMsg}}</h1>
+  </div>
+
+  <div class="message-pop-out-basket" v-show="$store.state.popOutMsgBasket != null" >
+     <h1 class="title is-4 " >{{$store.state.count}}-{{$store.state.popOutMsgBasket}}</h1>
+  </div>
+
+  <div class="message-payment" v-show="$store.state.paymentMessage === true" >
+     <h1 class="title is-3 " >Payment succsefull</h1>
+     <h1 class="title is-3 " >Confirmation email will be send shortly</h1>
+  </div>
+
 </nav>
 
-<br>
+</div>
 
-<router-view/>
+
+<div class="field has-addons search-container">
+  <div class="control is-expanded">
+    <input class="input is-hovered" type="text" v-model="value" placeholder="Find a book">
+  </div>
+  <div class="control">
+    <a class="button is-info">
+      <span class="icon is-small">
+        <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
+      </span>
+      <router-link :to="{ name: 'search', params: { data: value }}"><h1 class="title is-5" style="color:white;">Search</h1></router-link>
+    </a>
+  </div>
+</div>
+
+
+<router-view :key="$route.fullPath"></router-view>
+
+</div>
 </template>
 
 
 <style lang="scss">
 
-
-
 @import '../node_modules/bulma';
 
-#app{
-  background-color: white;
-}
-
-
-.is-rounded{
-  // width: 40px;
-  // height: 40px;
-
-}
-.navbar{
-  min-height: 5.3rem;
-
-  background-color:  #99d6ff;
-  // padding: 0px;
-
-}
-
-
-.about{
-  display: flex;
-  justify-content: center;
-  width:100;
-  margin: auto;
-  padding:10px;
-  background-color: #ffff66;
-}
-
-
-@media screen and (max-width: 1024px){        
-    .navbar-link{
-      display:none;
-    }
-}
+@import '@/assets/css/AppCss.css';
 
 </style>
+
+
 
 
 <script>
@@ -137,36 +183,109 @@ export default {
   name: 'App',
   data() {
       return {
-        userLoggedIn: null,
         showModel: false,
-        userPhoto:null,
+        basket:false,
+        Logout:false,
+        value:null,
+        l:[],
+        price:0,
+        user:true,
       }
     },
 
-
-  mounted(){
-    
+  watch: {
+    // you can use from or to , 
+    $route(to, from) {
+      if (from.name === 'log-in') {
+        this.$store.state.userId = this.$cookies.get("userID");
+        this.$store.state.userImage = localStorage.getItem('myPhoto')
+        this.$store.state.username = this.$cookies.get("user-succsess");
+        this.getBooks()
+      }
+    }
   },
 
-  watch: {
-      $route(to, from) {
-          console.log(to)
-          if (to.name === 'home') {
-            this.userLoggedIn = this.$cookies.get("user-succsess");
-            this.userPhoto = localStorage.getItem('myPhoto')
-              // this.getCategory()
-          }
-      }
+  mounted(){
+      this.$store.state.userId = this.$cookies.get("userID");
+      this.$store.state.userImage = localStorage.getItem('myPhoto')
+      this.$store.state.username = this.$cookies.get("user-succsess");
+      this.getBooks()
   },
 
   methods: {
-    toggleNavBar(e){
-     e.target.classList.toggle("is-active")
-     this.$refs['xxx'].classList.toggle("is-active");
+    showBasket(){
+      this.basket = true
     },
+    hideBasket(){
+      this.basket = false
+      console.log('leave')
+    },
+    showLogout(){
+      this.Logout = true
+      this.user = false
+    },
+    hideLogout(){
+      this.Logout = false
+      this.user = true
+    },
+    removeFromBasket(removeItemIndex,slug){
+      this.$store.commit('removeFromBasketStore',removeItemIndex)
+      if(this.$cookies.get("userID") || this.$store.state.userId){
+        const data = new FormData()
+        data.append('user_id', this.$cookies.get("userID"))
+        data.append('slug', slug)
+        axios.post("articles/delete-book-from-basket/",data)
+      }
+      if(this.$store.state.basketList.length == 0){
+        this.basket = false
+      }
+    },
+    subtractPrice(subtractPrice){
+      this.$store.commit('subtractPriceStore',subtractPrice)
+    },
+    removeBookPopUpMsg(){
+      this.$store.commit('showMsg','book removed from the basket')
+    },
+    getBooks(){
+        var self = this
+        if(this.$cookies.get("userID") || this.$store.state.userId){
+          const data = new FormData()
+          data.append('user_id', this.$cookies.get("userID"))
+          axios.post("articles/get-books-from-basket/",data).
+          then(response =>{
+            console.log(response.data)
+            response.data.forEach(function(item){
+              self.price += item.book_price
+              self.l.push(item.book)
+              self.l.push(item.book_price)
+              self.l.push(item.image_path)
+              self.l.push(item.slug)
+              self.$store.commit('addBookToBasket',self.l)
+              self.l = []            
+            }); self.$store.state.totalPrice = self.price
+          }).catch(error => {console.log(error)})
+      }
+    },
+    logout(){
+        this.$cookies.remove("userID")
+        this.$cookies.remove("user-succsess")
+        this.$cookies.remove("user-token")
+        localStorage.removeItem('myPhoto');
+        this.$router.go(0)
+    },
+    searchGenre(genre){
+      axios.get(`/articles/books-by-genres/${genre}/`)
+        .then(response => {console.log(response.data)})
+        .catch(error => {console.log(error)})
+    },
+    showModalApp(){
+      this.$refs.modalApp.classList.add('is-active')
+    },
+    removeModalApp(){
+      this.$refs.modalApp.classList.remove('is-active')
+    }
 
-  },
+  }
+
 }
 </script>
-
-

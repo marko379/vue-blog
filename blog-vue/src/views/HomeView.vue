@@ -2,19 +2,24 @@
 
 <div class="main-home">
 
-  <div class="msg-for-succsefully-created-user" v-show="isVisible">
-     <h1 class="title is-3" v-show="username_created != null">Welcome {{username_created}} You can login now!</h1>
-     <h1 class="title is-3" v-show="username_login != null">Welcome {{username_login}} You are logged in!</h1>
-  </div>
-
   <div class="container-articles">
-    <div v-for="article in Articles" :key="article.id" class="container"> <!--  v-if="Articles.length % 2 !== 0" -->
-      <router-link :to="{ name: 'article' ,  params: {slug: article.slug}}"><img class="home-images" :src="article.image_path"></router-link>
-      <div>
+    <div v-for="article in Articles" :key="article.id" class="container box"> <!--  v-if="Articles.length % 2 !== 0" -->
+        <router-link :to="{ name: 'article' ,  params: {slug: article.slug}}">
+            <img class="home-images" :src="article.image_path" width="200">
+        </router-link>
+
         <h1 class="title is-5">{{article.name}}</h1>
-        <p>{{article.description.substring(0,20)+"..."}}</p>
-        <p>{{article.date_added}}</p>
-      </div>
+        <div class="basket-container">
+          <Basket :slug="article.slug" :bookName="article.name" :bookPhoto="article.image_path" :bookPrice="article.price"/>
+        </div>
+        <div class="stars-home-view-container">
+          <ArticleStarsHome :slug="article.slug"/>
+        </div>
+        <div class="home-view-comments">
+          <h1 class="title is-5">{{article.num_of_comments}} reviews</h1>
+        </div>
+        
+
     </div>
     <div class="container"></div>
     <div class="container"></div>
@@ -30,14 +35,26 @@
 
 body{
   background-color: white;
+  font-family: 'Playfair Display', cursive;
+
 }
 
+.stars-home-view-container{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.ArticleStarsHome-div{
+  display: flex;
+}
 
 .main-home{
   background-color: white;
 }
 
-
+// .basket-container{
+//   width: 200px;
+// }
 
 .msg-for-succsefully-created-user{
   background-color: #b3ffb3;
@@ -49,7 +66,9 @@ body{
 
 }
 
-
+.home-view-comments{
+  margin-top: 5px;
+}
 .container-articles{
   background-color: white;
   display: flex;
@@ -65,12 +84,23 @@ body{
 
 .container{
   flex-grow: 0;
-  width: 400px;
+  width: 240px;
   // height: 400px;
   // border:dotted;
   margin: 10px;
+  // margin: auto;
 }
 
+.home-view-images{
+  margin:auto;
+  width:200px;
+  border:solid;
+}
+
+.desc-container{
+  margin: auto;
+  border:solid;
+}
 .home-images:hover {
   transition: transform 0.7s, filter 0.4s linear;
   filter: grayscale(90%);
@@ -79,11 +109,17 @@ body{
 
 </style>
 
-
 <script>
 import axios from 'axios'
+import Basket from '@/components/Basket.vue'
+import ArticleStarsHome from '@/components/ArticleStarsHome.vue'
+
 export default {
   name: 'HomeView',
+  components: {
+      Basket,
+      ArticleStarsHome,
+  },
     data() {
       return {
         Articles: [],
@@ -96,7 +132,6 @@ export default {
 
     mounted() {
       this.getArticles()
-      this.poppupShow()
     },
 
 
@@ -104,14 +139,6 @@ export default {
       async getArticles(){
         // 'http://127.0.0.1:8000/' base url in main.js
         await axios.get('articles/').then(response => {this.Articles = response.data}).catch(error => {console.log(error)})
-      },
-      poppupShow() {
-        if(this.$cookies.get("user-succsesfully-created-cookie-mg-blog") || this.$cookies.get("popup-user-msg")){
-          this.isVisible = true;
-          this.username_created = this.$cookies.get("user-succsesfully-created-cookie-mg-blog");
-          this.username_login = this.$cookies.get("popup-user-msg");
-          setTimeout(() => this.isVisible = false, 5000);
-        }
       },
     }
 }

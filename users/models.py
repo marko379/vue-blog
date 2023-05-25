@@ -1,21 +1,28 @@
 from django.db import models
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,AbstractUser
 from PIL import Image, ImageDraw,ImageOps
 # import numpy as np
 
 
 
 class User_photo(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE)
-	user_img = models.ImageField(upload_to='user_profile_images/', default='default_photo/avatar.png' ,blank=True, null=True)
-	avatar_photo = models.ImageField(upload_to='avatar_images/', default='default_photo/avatar.png',blank=True, null=True)
+	user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True, null=True)
+	user_img = models.ImageField(default='user_profile_images/brave.jpeg' ,upload_to='user_profile_images/',blank=True, null=True)
+	avatar_photo = models.ImageField(default='avatar_images/avatar.png',upload_to='avatar_images/',blank=True, null=True)
+	# user_img = models.ImageField(upload_to='user_profile_images/', default='avatar.png' ,blank=True, null=True)
+	# avatar_photo = models.ImageField(upload_to='avatar_images/', default='avatar.png',blank=True, null=True)
+	# user_img = models.ImageField(default='user_profile_images/brave.jpeg' ,upload_to='user_profile_images/')
+	# avatar_photo = models.ImageField(default='avatar_images/avatar.png',upload_to='avatar_images/')
 
 	def save(self,*args, **kwargs):
 		super().save(*args, **kwargs)  # saving image first
 		if self.user_img:
 			img = Image.open(self.user_img.path) # Open user_img using self
-			img = img.rotate(-270,expand=True)
+			img = ImageOps.exif_transpose(img)
+			# if img.width > img.height:
+			# 	img = img.rotate(-90,expand=True)
+			# 	print(img.height,img.width,'0ppppppppppppppppppppppppppppppppppppppppppppppppppppp')
 
 			if img.height > 450 or img.width > 450:
 				new_img = (450,445 )
@@ -25,6 +32,9 @@ class User_photo(models.Model):
 
 	def image_path(self):
 		return 'http://127.0.0.1:8000' + self.user_img.url
+
+	def image_avatar_path(self):
+		return 'http://127.0.0.1:8000' + self.avatar_photo.url
 
 
 	def __str__(self):
@@ -65,8 +75,6 @@ class Exe(models.Model):
 			return self.text[:10]
 		else:
 			return 'no text available'
-
-
 
 
 
@@ -138,3 +146,14 @@ class Exe(models.Model):
 # 			return self.user.username
 # 		else:
 # 			return 'unknown'
+
+
+
+# class NewUser(AbstractUser):
+#     new_name = models.CharField(max_length=255)
+#     new_email = models.CharField(max_length=255, unique=True)
+#     new_password = models.CharField(max_length=255)
+#     new_username = None
+
+#     NEW_USERNAME_FIELD = 'email'
+#     NEW_REQUIRED_FIELDS = []

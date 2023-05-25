@@ -4,7 +4,7 @@
 <div class="stars-container">
 
     <div class="aa">
-
+        <!-- this is popup container -->
         <div class="box-2 box" v-show="showStar">
             <div class="each-star-percentage">
                 <p class="subtitle is-6 ratings-grade-paragraf-box">5 star</p>
@@ -35,14 +35,21 @@
 
         </div>
     </div>
-
     <div class="aa" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">
-        <h1 class="title is-5 show-article-avarge-stars ratings-grade-paragraf">{{showArticleAvargeStars}}</h1>
+        <h1 class="title is-5 show-article-avarge-stars ratings-grade-paragraf">{{$store.state.bookAvergeRating}}</h1>
     </div>
 
     <div class="zz" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">
 
-            <div class="one-star" v-show="showArticleAvargeStars <= 1.2">
+            <div class="no-star" v-show="$store.state.bookAvergeRating < 1">
+                <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
+                <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
+                <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
+                <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
+                <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>  
+            </div>
+
+            <div class="one-star" v-show="$store.state.bookAvergeRating == 1 && $store.state.bookAvergeRating <= 1.2">
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
@@ -51,7 +58,7 @@
             </div>
 
 
-            <div class="one-half-star" v-show="showArticleAvargeStars > 1.3 && showArticleAvargeStars <= 1.7">
+            <div class="one-half-star" v-show="$store.state.bookAvergeRating > 1.3 && $store.state.bookAvergeRating <= 1.7">
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star-half-stroke" class="star-orange" size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
@@ -60,7 +67,7 @@
             </div>
 
 
-            <div class="two-star" v-show="showArticleAvargeStars > 1.7 && showArticleAvargeStars <= 2.2">
+            <div class="two-star" v-show="$store.state.bookAvergeRating > 1.7 && $store.state.bookAvergeRating <= 2.2">
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
@@ -68,7 +75,7 @@
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>  
             </div>
 
-            <div class="two-half-star" v-show="showArticleAvargeStars > 2.2 && showArticleAvargeStars <= 2.7">
+            <div class="two-half-star" v-show="$store.state.bookAvergeRating > 2.2 && $store.state.bookAvergeRating <= 2.7">
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star-half-stroke" class="star-orange" size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
@@ -76,7 +83,7 @@
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>    
             </div>
 
-            <div class="three-star" v-show="showArticleAvargeStars > 2.7 && showArticleAvargeStars <= 3.2">
+            <div class="three-star" v-show="$store.state.bookAvergeRating > 2.7 && $store.state.bookAvergeRating <= 3.2">
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
@@ -84,14 +91,14 @@
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>  
             </div>
 
-            <div class="three-half-star" v-show="showArticleAvargeStars > 3.2 && showArticleAvargeStars <= 3.7">
+            <div class="three-half-star" v-show="$store.state.bookAvergeRating > 3.2 && $store.state.bookAvergeRating <= 3.7">
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star-half-stroke" class="star-orange" size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>  
             </div>
-            <div class="four-star" v-show="showArticleAvargeStars  > 3.7 && showArticleAvargeStars <= 4.2">
+            <div class="four-star" v-show="$store.state.bookAvergeRating  > 3.7 && $store.state.bookAvergeRating <= 4.2">
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
@@ -99,7 +106,7 @@
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>  
             </div>
 
-            <div class="four-half-star" v-show="showArticleAvargeStars > 4.2 && showArticleAvargeStars <= 4.7">
+            <div class="four-half-star" v-show="$store.state.bookAvergeRating > 4.2 && $store.state.bookAvergeRating <= 4.7">
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
@@ -107,7 +114,7 @@
                 <font-awesome-icon icon="fa-solid fa-star-half-stroke" class="star-orange" size="lg"/> 
             </div>
 
-            <div class="five-star" v-show="showArticleAvargeStars > 4.7">
+            <div class="five-star" v-show="$store.state.bookAvergeRating > 4.7">
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/>
@@ -120,14 +127,11 @@
 
     <font-awesome-icon icon="fa-solid fa-arrow-down" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails" size="lg" class="arrow-down" bounce/>
 
-    <h1 class="title is-6 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{showArticleTotalStars}} ratings </h1>
+    <h1 class="title is-5 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{$store.state.showArticleTotalStars}}-ratings </h1>
 
-    <h1 class="title is-6 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{numOfComments}} reviews </h1>
+    <h1 class="title is-5 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{numOfComments}}-reviews </h1>
 
-
-
-
-
+    <h1 v-show="$store.state.userStars != null" class="title is-5 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">your-rate: {{$store.state.userStars}} <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/></h1>
 
 
 
@@ -140,9 +144,7 @@
 
 <style lang="scss">
 
-.content h1:not(:first-child) {
-    // margin-top: 0em;
-}
+
 
 .ratings-grade-paragraf-box{
     margin-left:2px;
@@ -195,17 +197,18 @@
 }
 
 .zz{
-    margin-right: 5px;
-    margin-left: 5px;
+    // margin-right: 5px;
+    // margin-left: 5px;
   // background-color: #ffffff;
   // width: 80%;
-  // margin: 0px;
+    margin-top: 4px;
   // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   // border: solid;
 }
 .aa{
     // border:solid;
-    margin-left:5px;
+    // margin-left:5px;
+    margin-top:4px;
 
 }
 .star-orange{
@@ -213,7 +216,7 @@
 }
 
 .subtitle{
-    color: #0066ff;
+    // color: #0066ff;
     // border:solid;
 
 }
@@ -228,17 +231,14 @@
 .stars-container{
     
     display: flex;
-    padding-top: 10px;
-    padding-bottom: 2px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 19px;
+    padding-bottom: 5px;
+    background-color: #f2f2f2;
+    width: 100%;
     // align-items: center;
     // border: solid;
-
-}
-
-.stars-container:hover{
-    
-    background-color: #f2f2f2;
-    transition-delay:0.1s;
 
 }
 
@@ -251,26 +251,19 @@
 <script>
 import axios from 'axios'
 export default {
-    props: ['datax','totalStars','numOfComments'],
+    props: ['datax','totalStars','numOfComments','slug'],
     name: 'ArticleStars',
     data() {
         return {
-           showArticleAvargeStars:null,
-           showArticleTotalStars:null,
+           // showArticleAvargeStars:null,
+           // showArticleTotalStars:null,
            showPercentageEachStar:[],
            showStar:false,
         }
     },
+
     mounted(){
         this.showArticleStars(this.$route.params.slug)
-    },
-
-    updated(){
-        if(!(this.datax == 0) )
-            this.showArticleAvargeStars = this.datax
-        if(this.totalStars){
-            this.showArticleTotalStars = this.totalStars
-        }
     },
 
     methods: {
@@ -278,12 +271,16 @@ export default {
         async showArticleStars(slug){
            await axios.get(`/articles/article-stars/${slug}/`)
            .then(response => {
+                if(response.data.total[0] == 0 || 1 || 2 || 3 || 4 || 5){
+                    this.$store.state.bookAvergeRating = response.data.total[0].toFixed(1)
+                }
+                else{
+                    this.$store.state.bookAvergeRating = response.data.total[0]
+                }
                 this.showPercentageEachStar = response.data.each_star_procentage,
-                this.showArticleAvargeStars = response.data.total[0],
-                this.showArticleTotalStars = response.data.total[1]}).catch(error => {console.log(error)})
+                this.$store.state.showArticleTotalStars = response.data.total[1]}).catch(error => {console.log(error)})
            
         },
-
 
         showStarsDatails(){
             this.showStar = true

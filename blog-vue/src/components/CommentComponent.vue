@@ -1,12 +1,12 @@
 <template>
 
     <div v-show="isVisible" class="notification is-primary is-light show-comment-succses-msg">
-        <button @click="deleteMessageComment" class="delete"></button>
         <h3 class="title is-3">Comment published succesfully</h3>
     </div>
 
     <div class="comment-form">
         <form @submit.prevent="submitCommentForm" class="box">
+
             <div class="field title-field">
                 <div class="control">
                     <input type="text" class="input" name="title" v-model="title" placeholder="Title of comment">
@@ -16,11 +16,8 @@
             <div class="field comment-field">
                 <div class="control">
                     <textarea class="textarea is-primary" placeholder="Comment" name="comment" v-model="comment"></textarea>
-                    <!-- <input type="text" class="input" name="comment" v-model="comment" placeholder="comment"> -->
                 </div>
             </div>
-
-
 
             <br>
 
@@ -29,10 +26,17 @@
                     <button class="button is-success is-fullwidth">Publish</button>
                 </div>
             </div>
+
+
+            <!-- errors.length -->
+            <div class="notification is-danger" v-if="errors.length">
+                <h1 class="title is-3 is-italic abc" v-for="error in errors" v-bind:key="error">{{ error }}</h1>
+            </div>
+
+
         </form>
     </div>
     <br>
-
 
 </template>
 
@@ -87,26 +91,28 @@ export default {
             isVisible:false,
         }
     },
+
     methods: {
         submitCommentForm() {
-            const data2 = new FormData()
-            this.errors = []
-            this.userID = this.$cookies.get("userID")
-            if (!this.errors.length) {
+            if (this.title.length < 5 || this.comment.length < 5){
+                this.errors.push('Title and comment content have to have at least 5 character each')
+                this.title = ''
+                this.comment = ''
+            }
+            if (this.title.length > 4 || this.comment.length > 4) {
+                let thiss = this
+                this.errors = []
+                const data2 = new FormData()
+                this.userID = this.$cookies.get("userID")
                 data2.append('title', this.title)
                 data2.append('comment', this.comment)
-                // this.slugg comes from props from parent component (ArticleView.vue)
                 data2.append('slug', this.slugg)
                 data2.append('userID', this.userID)                       
                 axios.post("articles/comment/", data2).then(response =>{
-                    if (response.data){
-                        console.log(response.data),
-                        // return data and pass it in publishComment(response.data) , to update coment without refresh page 
+                        // return data and pass it in publishComment(response.data) , to update coment without refresh page
                         this.publishComment(response.data),
                         this.clearCommentFields(),
-                        this.showMessageComment(),
-                        this.$router.push('/samsung-s22')
-                    }
+                        this.showMessageComment()
                 })
             }   
         },
@@ -121,12 +127,7 @@ export default {
             this.comment = ''
         },
         showMessageComment(){
-            this.isVisible = true
-            // after 5 sec this.isVisible will be set to false 
-            setTimeout(() => this.isVisible = false, 5000);
-        },
-        deleteMessageComment(){
-            this.isVisible = false
+            this.$store.commit('showMsg', 'comment published succsesfully')
         }
     }
 

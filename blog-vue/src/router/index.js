@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ArticleView from '../views/ArticleView.vue'
-import UserView from '../views/UserView.vue'
 import Login from '../views/Login.vue'
 import UserViewProfile from '../views/UserViewProfile.vue'
 import SingupView from '../views/SingupView.vue'
+import SerachResults from '../views/SerachResults.vue'
+import SerachBookByGenre from '../views/SerachBookByGenre.vue'
+import BuyBooksView from '../views/BuyBooksView.vue'
 
 
 
@@ -20,11 +22,6 @@ const routes = [
     component: ArticleView
   },
   {
-    path: '/users/',
-    name: 'user',
-    component: UserView
-  },
-  {
     path: '/login/',
     name: 'log-in',
     component: Login
@@ -38,6 +35,25 @@ const routes = [
     path: '/register/',
     name: 'singup',
     component: SingupView
+  },
+  {
+    path: '/books-checkout/',
+    name: 'checkout',
+    component: BuyBooksView
+  },
+  {
+    // path: '/search-results/:data',
+    path: '/search-results/:data?',
+    name: 'search',
+    component: SerachResults,
+    props: true
+  },
+  {
+    // path: '/search-results/:data',
+    path: '/search-results-by-genre/:genre?',
+    name: 'search-book-by-genre',
+    component: SerachBookByGenre,
+    props: true
   },
   {
     path: '/about',

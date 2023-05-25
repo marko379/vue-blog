@@ -1,85 +1,85 @@
 <template>
-    
-    <div class="page-sign-up">
-        <div class="columns">
-            <div class="column is-4 is-offset-4">
-                <h1 class="title">Sign up</h1>
 
-                <form @submit.prevent="submitForm">
-                    <div class="field">
-                        <label>Required</label>
-                        <div class="control">
-                            <input type="text" class="input" name="username" v-model="username" placeholder="Username">
-                        </div>
+<div class="page-sign-up">
+    <div class="columns">
+        <div class="column is-4 is-offset-4">
+            <h1 class="title">Sign up</h1>
+
+            <form @submit.prevent="submitForm">
+                <div class="field">
+                    <label>Required</label>
+                    <div class="control">
+                        <input type="text" class="input" name="username" v-model="username" placeholder="Username">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Required</label>
+                    <div class="control">
+                        <input type="password" class="input" name="password1" v-model="password1" placeholder="Password">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Required</label>
+                    <div class="control">
+                        <input type="password" class="input" name="password2" v-model="password2" placeholder="Repeat Password">
+                    </div>
+                </div>
+
+                <div class="notification is-danger" v-if="errors.length">
+                    <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
+                </div>
+
+                <p>Optional</p>
+                <div class="file is-link">
+                  <label class="file-label">
+                    <input class="file-input" type="file" ref="image" name="image" id="image" v-on:change="selectFile"/>
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+                      <span class="file-label">
+                        {{file}}
+                      </span>
+                    </span>
+                  </label>
+                </div>
+
+                <hr>
+                
+                <div class="cropped-photos-div" v-show="image">
+                    <h3 class="title is-3" >Your profile photo</h3>
+                    <div class="container-slika">
+                        <img src="" alt="" class="slika" ref="aaa">
                     </div>
 
-                    <div class="field">
-                        <label>Required</label>
-                        <div class="control">
-                            <input type="password" class="input" name="password1" v-model="password1" placeholder="Password">
-                        </div>
+                    <br>
+
+                    <div class="blob-slika">
+                        <h3 class="title is-5" v-show="canvas==null">Make your avatar</h3>
+                        <img :src="avatar" class="rounded">
+                        <h3 class="title is-5" v-show="canvas==null">you do not have avatar yet</h3>
+                        <h3 class="title is-5" v-show="canvas!=null">your avatar</h3>
                     </div>
+                    <button class="button is-success" type="button" @click="imageCrop">Avatar-click me</button>
+                </div>
 
-                    <div class="field">
-                        <label>Required</label>
-                        <div class="control">
-                            <input type="password" class="input" name="password2" v-model="password2" placeholder="Repeat Password">
-                        </div>
+                <br>                   
+
+                <div class="field">
+                    <div class="control button-field">
+                        <button class="button is-success is-fullwidth">Sign up</button>
                     </div>
+                </div>
+                or <router-link to="/log-in">click here</router-link> to log in!
 
-                    <div class="notification is-danger" v-if="errors.length">
-                        <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
-                    </div>
-
-                    <p>Optional</p>
-                    <div class="file is-link">
-                      <label class="file-label">
-                        <input class="file-input" type="file" ref="image" name="image" id="image" v-on:change="selectFile"/>
-                        <span class="file-cta">
-                          <span class="file-icon">
-                            <i class="fas fa-upload"></i>
-                          </span>
-                          <span class="file-label">
-                            {{file}}
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-
-                    <hr>
-                    
-                    <div class="cropped-photos-div" v-show="image">
-                        <h3 class="title is-3" >Your profile photo</h3>
-                        <div class="container-slika">
-                            <img src="" alt="" class="slika" ref="aaa">
-                        </div>
-
-                        <br>
-
-                        <div class="blob-slika">
-                            <h3 class="title is-5" v-show="canvas==null">Make your avatar</h3>
-                            <img :src="avatar" class="rounded">
-                            <h3 class="title is-5" v-show="canvas==null">you do not have avatar yet</h3>
-                            <h3 class="title is-5" v-show="canvas!=null">your avatar</h3>
-                        </div>
-                        <button class="button is-success" type="button" @click="imageCrop">Avatar-click me</button>
-                    </div>
-
-                    <br>                   
-
-                    <div class="field">
-                        <div class="control button-field">
-                            <button class="button is-success is-fullwidth">Sign up</button>
-                        </div>
-                    </div>
-                    or <router-link to="/log-in">click here</router-link> to log in!
-
-                </form>
-            </div>
+            </form>
         </div>
-
-
     </div>
+
+
+</div>
 
 
 </template>
@@ -87,6 +87,7 @@
 
 
 <style lang="scss">
+
 
 .field{
     // border:solid red;
@@ -180,6 +181,9 @@ export default {
             let self = this;
             const data = new FormData()
             this.errors = []
+            if (this.username.length > 10) {
+                this.errors.push('The username is too long, 10 characters max')
+            }   
             if (!this.errors.length) {
                 data.append('username', this.username)
                 data.append('password1', this.password1)
@@ -187,23 +191,30 @@ export default {
                 data.append('image', this.image)
                 data.append('avatar', this.avatar2)
                   
-                axios.post("users/register/", data).then(response =>{if (response.data == 'succsess'){
-                    this.$router.push('/home-page'),this.$cookies.set("user-succsesfully-created-cookie-mg-blog", this.username ,"10s")
-                }if(response.data.password2){
-                    for (var i = 0; i < response.data.password2.length; i++){
-                      self.errors.push(response.data.password2[i].message)
+                axios.post("users/register/", data).then(response =>{
+                    if (response.data.success == 'user created'){
+                        this.$store.commit('showMsg','welcome ' + response.data.name_of_user)                            
+                        return this.$router.go(-1)
                     }
 
-                }if(response.data.username){
-                    for (var i = 0; i < response.data.username.length; i++){
-                      self.errors.push(response.data.username[i].message)
+                    if(response.data.password2){
+                        for (var i = 0; i < response.data.password2.length; i++){
+                            self.errors.push(response.data.password2[i].message)
+                        }
+
                     }
-                }
+                    if(response.data.username){
+                        for (var i = 0; i < response.data.username.length; i++){
+                            self.errors.push(response.data.username[i].message)
+                        }
+                    }
+
                     this.username = ''
                     this.password1 = ''
                     this.password2 = ''
                     this.file = 'Uplode your image'
                     this.image = null
+                    this.avatar = null
                 })
                     
             }
@@ -219,8 +230,6 @@ export default {
         imageCrop(){
           this.canvas = this.cropper.getCroppedCanvas({width: 100,height: 100}); //
           this.canvas.toBlob(blob => {this.avatar = URL.createObjectURL(blob),this.avatar2 = new File([blob],this.file ,{ type: "image/png" })})
-          console.log(this.avatar2)
-          // this.canvas.toBlob(blob => {this.avatar = URL.createObjectURL(blob),this.avatar2 = new File([blob],'eee.png' ,{ type: "image/png" })})
         }
     },
 
