@@ -18,7 +18,7 @@ import 'cropperjs/dist/cropper.css';
 
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/'
 
-axios.defaults.baseURL = 'https://vue-blog-production.up.railway.app/'
+axios.defaults.baseURL = 'https://vue-blog-production.up.railway.app/articles'
 
 
 
