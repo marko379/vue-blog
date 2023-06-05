@@ -35,7 +35,7 @@
 
 body{
   background-color: white;
-  font-family: 'Playfair Display', cursive;
+
 
 }
 
