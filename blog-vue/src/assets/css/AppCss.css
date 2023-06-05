@@ -2,7 +2,12 @@
 /*@import '../node_modules/bulma';*/
 
 .body{
+<<<<<<< HEAD
 /*  font-family: 'Playfair Display', cursive;*/
+=======
+/*   font-family: 'Playfair Display', cursive; */
+  font-family: 'Playfair Display';
+>>>>>>> 0d1f1b3b7aa322bd3b26a2f3abf51896f6da6fb9
 }
 
 #app{
