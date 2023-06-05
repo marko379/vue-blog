@@ -39,7 +39,8 @@ class Article(models.Model):
 
 	# you can accsess methods in views and vue template
 	def image_path(self):
-		return 'http://127.0.0.1:8000' + self.image.url
+# 		return 'http://127.0.0.1:8000' + self.image.url
+		return 'https://vue-blog-production.up.railway.app' + self.image.url
 
 	def description_1st_part(self):
 		if len(self.description) > 410:
