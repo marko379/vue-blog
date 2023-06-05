@@ -5,7 +5,7 @@
   <div class="container-articles">
     <div v-for="article in Articles" :key="article.id" class="container box"> <!--  v-if="Articles.length % 2 !== 0" -->
         <router-link :to="{ name: 'article' ,  params: {slug: article.slug}}">
-            <img class="home-images" :src="article.image_path" width="200">
+            <img class="home-images" :src="article.image_path" width="200" referrerpolicy="unsafe-url">
         </router-link>
 
         <h1 class="title is-5">{{article.name}}</h1>
