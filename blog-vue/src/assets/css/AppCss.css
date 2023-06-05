@@ -2,7 +2,8 @@
 /*@import '../node_modules/bulma';*/
 
 .body{
-  font-family: 'Playfair Display', cursive;
+/*   font-family: 'Playfair Display', cursive; */
+  font-family: 'Playfair Display';
 }
 
 #app{
