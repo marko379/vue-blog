@@ -22,7 +22,7 @@ class User_photo(models.Model):
 			img = ImageOps.exif_transpose(img)
 			# if img.width > img.height:
 			# 	img = img.rotate(-90,expand=True)
-			# 	print(img.height,img.width,'0ppppppppppppppppppppppppppppppppppppppppppppppppppppp')
+
 
 			if img.height > 450 or img.width > 450:
 				new_img = (450,445 )
@@ -31,10 +31,10 @@ class User_photo(models.Model):
 
 
 	def image_path(self):
-		return 'http://127.0.0.1:8000' + self.user_img.url
+		return 'https://vue-blog-production.up.railway.app' + self.user_img.url
 
 	def image_avatar_path(self):
-		return 'http://127.0.0.1:8000' + self.avatar_photo.url
+		return 'https://vue-blog-production.up.railway.app' + self.avatar_photo.url
 
 
 	def __str__(self):
@@ -50,7 +50,7 @@ class MyUserModel(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 
 	def user_profile_photo(self):
-		return 'http://127.0.0.1:8000' + self.user.user_photo.user_img.url
+		return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.user_img.url
 
 	def user_profile_username(self):
 		return self.user.username
