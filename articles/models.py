@@ -39,11 +39,7 @@ class Article(models.Model):
 
 	# you can accsess methods in views and vue template
 	def image_path(self):
-<<<<<<< HEAD
 		# return 'http://127.0.0.1:8000' + self.image.url
-=======
-# 		return 'http://127.0.0.1:8000' + self.image.url
->>>>>>> 0d1f1b3b7aa322bd3b26a2f3abf51896f6da6fb9
 		return 'https://vue-blog-production.up.railway.app' + self.image.url
 
 	def description_1st_part(self):
@@ -84,13 +80,9 @@ class Books_in_Basket(models.Model):
 		return self.basket.slug
 
 	def image_path(self):
-<<<<<<< HEAD
 		# return 'http://127.0.0.1:8000' + self.basket.image.url
 		return 'https://vue-blog-production.up.railway.app' + self.basket.image.url
-=======
-		return 'https://vue-blog-production.up.railway.app' + self.basket.image.url
 
->>>>>>> 0d1f1b3b7aa322bd3b26a2f3abf51896f6da6fb9
 
 
 
@@ -120,15 +112,9 @@ class Comments(models.Model):
 
 	def user_photo(self):
 		if self.user:
-<<<<<<< HEAD
 			# return 'http://127.0.0.1:8000' + self.user.user_photo.avatar_photo.url
 			return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.avatar_photo.url
 		else:
-			# return 'http://127.0.0.1:8000' + settings.MEDIA_URL  + 'avatar.png'
-=======
-			return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.avatar_photo.url
-		else:
->>>>>>> 0d1f1b3b7aa322bd3b26a2f3abf51896f6da6fb9
 			return 'https://vue-blog-production.up.railway.app' + settings.MEDIA_URL  + 'avatar.png'
 
 	def datepublished(self):

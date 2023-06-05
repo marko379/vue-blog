@@ -30,17 +30,10 @@ class User_photo(models.Model):
 				img.save(self.user_img.path)  # saving user_img at the same path
 
 	def image_path(self):
-<<<<<<< HEAD
 		# return 'http://127.0.0.1:8000' + self.user_img.url
 		return 'https://vue-blog-production.up.railway.app' + self.user_img.url
 
 	def image_avatar_path(self):
-		# return 'http://127.0.0.1:8000' + self.avatar_photo.url
-=======
-		return 'https://vue-blog-production.up.railway.app' + self.user_img.url
-
-	def image_avatar_path(self):
->>>>>>> 0d1f1b3b7aa322bd3b26a2f3abf51896f6da6fb9
 		return 'https://vue-blog-production.up.railway.app' + self.avatar_photo.url
 
 
@@ -56,10 +49,7 @@ class User_photo(models.Model):
 class MyUserModel(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	def user_profile_photo(self):
-<<<<<<< HEAD
 		# return 'http://127.0.0.1:8000' + self.user.user_photo.user_img.url
-=======
->>>>>>> 0d1f1b3b7aa322bd3b26a2f3abf51896f6da6fb9
 		return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.user_img.url
 
 	def user_profile_username(self):

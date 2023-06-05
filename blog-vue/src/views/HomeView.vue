@@ -35,11 +35,6 @@
 
 body{
   background-color: white;
-<<<<<<< HEAD
-  // font-family: 'Playfair Display', cursive;
-=======
-
->>>>>>> 0d1f1b3b7aa322bd3b26a2f3abf51896f6da6fb9
 
 }
 
