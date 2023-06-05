@@ -80,7 +80,7 @@ class Books_in_Basket(models.Model):
 		return self.basket.slug
 
 	def image_path(self):
-		return 'http://127.0.0.1:8000' + self.basket.image.url
+		return 'https://vue-blog-production.up.railway.app' + self.basket.image.url
 
 
 
@@ -111,9 +111,9 @@ class Comments(models.Model):
 
 	def user_photo(self):
 		if self.user:
-			return 'http://127.0.0.1:8000' + self.user.user_photo.avatar_photo.url
+			return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.avatar_photo.url
 		else:
-			return 'http://127.0.0.1:8000' + settings.MEDIA_URL  + 'avatar.png'
+			return 'https://vue-blog-production.up.railway.app' + settings.MEDIA_URL  + 'avatar.png'
 
 	def datepublished(self):
 		return self.date_added.strftime('%c')
