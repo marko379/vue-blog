@@ -25,7 +25,7 @@ def register_api(request):
     serializer = RegisterSerilizer(data=request.data)
     serializer.is_valid(raise_exception=True)
     user = serializer.save()
-    return redirect ('http://127.0.0.1:8000/articles/')
+    return redirect ('https://vue-blog-production.up.railway.app/articles/')
 
 
 @api_view(['POST'])
