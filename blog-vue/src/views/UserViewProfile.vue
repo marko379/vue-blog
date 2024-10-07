@@ -1,7 +1,7 @@
 <template>
 
 <div v-show="username == ''">
-  <h1>Please login/register so that you can see your profile</h1>
+  <h1 class="title">Please login/register so that you can see your profile</h1>
 </div>
 
 <div v-show="username != ''" class="profile">

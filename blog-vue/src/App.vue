@@ -1,6 +1,5 @@
 <template>
 
-
 <div id="app">
 
 
@@ -49,11 +48,11 @@
             <h1 class="title is-1">There are not any books in the basket yet :(</h1>
           </div>
           <div class="basket-items-container">
-            <div  v-for="item , index in $store.state.basketList">
+            <div v-for="item , index in $store.state.basketList">
               <div class="basket-items">
                 <div>
                   <img :src="item['book-photo']" alt="" width="70">
-                  <p>{{item['book-name']}}</p>       
+                  <p>{{item['book-name']}}</p>   
                 </div>
                 <div>
                   <p class="basket-paragraf-price">£{{item['price']}}</p>
@@ -76,6 +75,7 @@
       </header>
       <section class="modal-card-body">
         <div class="is-flex m-2" v-for="book in $store.state.basketList">
+
           <img :src="book['book-photo']" width="70">
           <div>
             <h1 class="title is-5 is-italic ml-3">{{book['book-name']}}</h1>
@@ -127,7 +127,7 @@
 
 
 
-  <div class="message-pop-out" v-show="$store.state.popOutMsg != null" >
+  <div class="message-pop-out" v-show="$store.state.popOutMsg != null">
      <h1 class="title is-4 " >{{$store.state.popOutMsg}}</h1>
   </div>
 
@@ -219,7 +219,6 @@ export default {
     },
     hideBasket(){
       this.basket = false
-      console.log('leave')
     },
     showLogout(){
       this.Logout = true

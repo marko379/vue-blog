@@ -100,6 +100,7 @@ def PublishComment(request):  # use APIview or function based view or any view u
             users = User.objects.get(id=userID)
             username = users.username
             create_new_comment = Comments.objects.create(comment=text,title=title,user=users,article=articless)
+            # get photo of the user
             user_photo = create_new_comment.user_photo()
         else:
             username = 'unknown'
@@ -224,7 +225,7 @@ def UpdateUserStars(request):
 
     'total_stars': star_sytem.total()[1], # calculation of  avarge grade
     'star_grade': star_sytem.total()[0], # total nuber of all users 
-    'user_grade': grade_of_user
+    'user_grade': grade_of_user # 
 
     }
 
@@ -301,7 +302,6 @@ def comment_like_dislike_system(request):
                     'comment_disliskes_count' : comment_disliskes_count,
                     'comment_liskes_count' : comment_liskes_count
                   }
-
         
         return Response(content)
 

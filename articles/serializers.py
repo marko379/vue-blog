@@ -22,9 +22,8 @@ class Article_Serializer(serializers.ModelSerializer):
             'num_of_comments',
             'category',
             'categories',
-            # "get_absolute_url",
             "image_path",
-            # "get_thumbnail"
+            "writer"
         )
 
 class Book_in_Basket_Serializer(serializers.ModelSerializer):

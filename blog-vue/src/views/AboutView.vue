@@ -1,12 +1,26 @@
 <template>
 
-
-    <router-link to="/home-page"><h1 class="title is-5 my-nav-link">Home</h1></router-link>
-
-    <router-link to="/user-profile"><h1 class="title is-5 my-nav-link">Profile</h1></router-link>
+<div class="my-div"  @mouseover="mouseAddColor" ref="divv"  @mouseleave="mouseRemoveColor">
+    hdhdhddh
+</div>
 
 </template>
+
+
 <style lang="scss">
+
+.my-div{
+    height: 100px;
+    border: solid;
+}
+
+// .my-div:hover {
+//   background-color: yellow;
+// }
+
+.red{
+    background-color: red;
+}
 
 </style>
 
@@ -14,5 +28,27 @@
 
 
 <script>
+export default {
 
+    mounted(){
+        this.isTouchDevice()
+    },
+
+
+    methods: {
+        isTouchDevice(){
+            if('ontouchstart' in window){
+                console.log('oooooooooooo')
+            }
+        },
+
+        mouseAddColor(){
+              this.$refs['divv'].classList.add('red')
+        },
+
+
+    }
+
+
+}
 </script>

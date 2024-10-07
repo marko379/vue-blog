@@ -25,6 +25,7 @@ class Category(models.Model):
 
 class Article(models.Model):
 	# category = models.ForeignKey(Category, related_name='article', on_delete=models.CASCADE)
+	writer = models.CharField(max_length=70,null=True)
 	category = models.ManyToManyField(Category,blank=True,related_name='book_category')
 	name = models.CharField(max_length=255)
 	slug = models.SlugField(blank=True, null=True)
@@ -38,6 +39,7 @@ class Article(models.Model):
 		return self.name
 
 	# you can accsess methods in views and vue template
+	# 'http://127.0.0.1:8000' = django server,basiclly go there and get photo
 	def image_path(self):
 		# return 'http://127.0.0.1:8000' + self.image.url
 		return 'https://vue-blog-production.up.railway.app' + self.image.url
@@ -114,7 +116,7 @@ class Comments(models.Model):
 		if self.user:
 			# return 'http://127.0.0.1:8000' + self.user.user_photo.avatar_photo.url
 			return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.avatar_photo.url
-		else:
+		# else:
 			return 'https://vue-blog-production.up.railway.app' + settings.MEDIA_URL  + 'avatar.png'
 
 	def datepublished(self):

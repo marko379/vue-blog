@@ -35,7 +35,7 @@
 
 .container-articles-search-genre{
     display: flex;
-    justify-content: space-around;
+    // justify-content: space-around;
     flex-wrap: wrap;
 
 }

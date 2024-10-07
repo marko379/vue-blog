@@ -21,9 +21,9 @@
     <div class="main-container-2">
         <div class="article-title">
           <h1 class="title is-2 is-italic abc">{{Article.name}}</h1>
-          <h1 class="title is-1 is-italic">{{Article.price}}</h1>
+          <h1 class="title is-1 is-italic">£{{Article.price}}</h1>
         </div>
-        <h1 class="title is-4 ">Aldous Huxley</h1>
+        <h1 class="title is-4 ">{{Article.writer}}</h1>
         <div class="vjezba">
           <ArticleStars :slug="$route.params.slug" :datax="datax" :totalStars="totalStars" :numOfComments="Comments.length"/>
         </div>
@@ -79,7 +79,7 @@
         <div class="Comment-Component">
           <!-- remember u are passing props from here to CommentComponent (child component) -->
           <!-- remember u are triggering also emit over here  @myComment="publish" -->
-                <CommentComponent :slugg="Article.slug"  @close="toggleModel" @myComment="publish"/>
+            <CommentComponent :slugg="Article.slug"  @close="toggleModel" @myComment="publish"/>
         </div>
 
         <hr>
@@ -119,7 +119,7 @@
 
                 <div :ref="`thumbs_up_regular${comment.id}`" class="">
                   <div class="tooltip">
-                    <font-awesome-icon icon="fa-regular fa-thumbs-up" class="tooltip" @click=" addOneLike(comment.id,comment.user_like_comment_count); submitCommentLikeDislike(comment.username,Article.slug,comment.id,'like'); submit2(comment.id,'thumbs_up_regular');" size="2x"/>
+                    <font-awesome-icon icon="fa-regular fa-thumbs-up" class="tooltip" @click="addOneLike(comment.id,comment.user_like_comment_count); submitCommentLikeDislike(comment.username,Article.slug,comment.id,'like'); submit2(comment.id,'thumbs_up_regular');" size="2x"/>
                   <span class="tooltiptext">I like it</span>
                   </div>
                 </div>
@@ -195,8 +195,8 @@ export default {
       datax:null,
       totalStars:null,
       secondPart:false,
-      userLikeComment:'',
-      userDislikeComment:null,
+      // userLikeComment:'',
+      // userDislikeComment:null,
       comment_id: null,
       isActive:false,
 
@@ -216,7 +216,7 @@ export default {
         axios.get(`/articles/${this.$route.params.slug}/`).then(response => {this.Article = response.data}).catch(error => {console.log(error)})
 
     },
-    // slug = get_comments
+    // slug = get_comments  =  this.showComments(this.$route.params.slug)
     showComments(get_comments){
       axios.get(`/articles/comm/${get_comments}/`).then(response => {this.Comments = response.data}).catch(error => {console.log(error)})
     },
@@ -224,7 +224,7 @@ export default {
     toggleModel (value) {
       this.name = value
     },
-
+    //  the data(comment) is sent from comment component by emit, this peace of code is made to publish a coment without refreshing a page
     publish (publishComment) {
       this.Comments.push(publishComment)
     },
@@ -233,6 +233,7 @@ export default {
       this.showComments(this.$route.params.slug)
     },
     readMore(){
+      // ! = logical “not” operator , Placed in front of a boolean value it will reverse the value, returning the opposite. ! true; // Returns false.
       this.secondPart = !this.secondPart
       this.$refs['readMoreLink'].innerHTML = ""
       this.$refs['readLessLink'].innerHTML = " read less"     
@@ -243,14 +244,18 @@ export default {
       this.$refs['readLessLink'].innerHTML = ""
     },
     readMoreComment(comm_id){
+      // readMoreCommentSpanRef+id automaticlly made with every comment created
+      // readmore button will disappeared
       let comm_ref_read_more_span = this.$refs['readMoreCommentSpanRef'+ comm_id.toString()][0]
       // comm_ref_read_more_span.innerHTML = ''
       comm_ref_read_more_span.classList.add('aaa')
 
+      // readless button will appeared
       let comm_ref_read_less_span = this.$refs['readLessCommentSpanRef'+ comm_id.toString()][0]
+       // comm_ref_read_less_span.innerHTML = '... read less'
       comm_ref_read_less_span.classList.remove('aaa')
-      // comm_ref_read_less_span.innerHTML = '... read less'
 
+      // show 2nd part of the comment
       let comm_ref = this.$refs['readMoreCommentRef'+ comm_id.toString()][0]
       comm_ref.classList.remove('aaa')
 
@@ -270,27 +275,38 @@ export default {
     },
 
     addOneLike(comm_id,like_comment_count){
+      // it will return innerHTML pay attention
+      if(this.$cookies.get("userID")){
       let add_like = parseInt(this.$refs['comment_likes_count' + comm_id.toString()][0].innerHTML) + 1
       this.$refs['comment_likes_count' + comm_id.toString()][0].innerHTML = add_like      
-      if(this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.contains('red')){
-        this.removeOneDislike(comm_id,like_comment_count)
+        if(this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.contains('red')){
+          this.removeOneDislike(comm_id,like_comment_count)
+        }
       }
 
     },
     removeOneLike(comm_id,like_comment_count){
-      let removeLike =  parseInt(this.$refs['comment_likes_count' + comm_id.toString()][0].innerHTML) - 1
-      this.$refs['comment_likes_count' + comm_id.toString()][0].innerHTML = removeLike
+      // parseInt will take a string like " "
+      if(this.$cookies.get("userID")){
+        let removeLike =  parseInt(this.$refs['comment_likes_count' + comm_id.toString()][0].innerHTML) - 1
+        this.$refs['comment_likes_count' + comm_id.toString()][0].innerHTML = removeLike
+      }
     },
     addOneDislike(comm_id,like_comment_count){
-      let addDislike =  parseInt(this.$refs['comment_dislikes_count' + comm_id.toString()][0].innerHTML) + 1
-      this.$refs['comment_dislikes_count' + comm_id.toString()][0].innerHTML = addDislike
-      if(this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.contains('green')){
-        this.removeOneLike(comm_id,like_comment_count)
+      if(this.$cookies.get("userID")){
+        let addDislike =  parseInt(this.$refs['comment_dislikes_count' + comm_id.toString()][0].innerHTML) + 1
+        this.$refs['comment_dislikes_count' + comm_id.toString()][0].innerHTML = addDislike
+        if(this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.contains('green')){
+          this.removeOneLike(comm_id,like_comment_count)
+
+        }
       }
     },
     removeOneDislike(comm_id,like_comment_count){
-      let removeDislike =  parseInt(this.$refs['comment_dislikes_count' + comm_id.toString()][0].innerHTML) - 1
-      this.$refs['comment_dislikes_count' + comm_id.toString()][0].innerHTML = removeDislike
+      if(this.$cookies.get("userID")){
+        let removeDislike =  parseInt(this.$refs['comment_dislikes_count' + comm_id.toString()][0].innerHTML) - 1
+        this.$refs['comment_dislikes_count' + comm_id.toString()][0].innerHTML = removeDislike
+      }
     },
 
 
@@ -301,9 +317,9 @@ export default {
         data.append('slug', slug)
         data.append('like_dislike', like_dislike)
         data.append('comment_id', comment_id)
-        axios.post("articles/like-dislike-comment/",data).
-        then(response =>{this.comment_id =  response.data.comment_id,this.userLikeComment = response.data.user_like_comment,
-                this.userDislikeComment = response.data.user_dislike_comment,console.log(response .data)}).catch(error => {console.log(error)})
+        axios.post("articles/like-dislike-comment/",data)
+        // .then(response =>{this.comment_id =  response.data.comment_id,this.userLikeComment = response.data.user_like_comment,
+        //         this.userDislikeComment = response.data.user_dislike_comment,console.log(response .data)}).catch(error => {console.log(error)})
       }
       else{
         this.$store.commit('showMsg','Please login first')
@@ -336,50 +352,51 @@ export default {
 
     submit2(comm_id,t){
       let q = this.$refs[t + comm_id.toString()]
+      if(this.$cookies.get("userID")){
+        if(t == 'thumbs_up_regular'){
+          if (q[0].classList.length == 0){
+              this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.remove('aaa')
+              this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.add('green')
+              this.$refs['thumbs_up_regular' + comm_id.toString()][0].classList.add('aaa')
 
-      if(t == 'thumbs_up_regular'){
-        if (q[0].classList.length == 0){
-            this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.remove('aaa')
-            this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.add('green')
-            this.$refs['thumbs_up_regular' + comm_id.toString()][0].classList.add('aaa')
+              this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.remove('red')
+              this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.add('aaa')
 
-            this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.remove('red')
-            this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.add('aaa')
-
-            this.$refs['thumbs_down_regular' + comm_id.toString()][0].classList.remove('aaa')
+              this.$refs['thumbs_down_regular' + comm_id.toString()][0].classList.remove('aaa')
+          }
         }
-      }
-      else if (t == 'thumbs_up_solid'){
-        if (q[0].classList.length > 0){
-            this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.remove('green')
-            this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.add('aaa')
-            this.$refs['thumbs_up_regular' + comm_id.toString()][0].classList.remove('aaa')
+        else if (t == 'thumbs_up_solid'){
+          if (q[0].classList.length > 0){
+              this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.remove('green')
+              this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.add('aaa')
+              this.$refs['thumbs_up_regular' + comm_id.toString()][0].classList.remove('aaa')
 
-            this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.add('aaa')
-            this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.remove('red')
-        }   
-      }
-      else if (t == 'thumbs_down_regular'){
-        if (q[0].classList.length == 0){
-            this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.remove('aaa')
-            this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.add('red')
-            this.$refs['thumbs_down_regular' + comm_id.toString()][0].classList.add('aaa')
+              this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.add('aaa')
+              this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.remove('red')
+          }   
+        }
+        else if (t == 'thumbs_down_regular'){
+          if (q[0].classList.length == 0){
+              this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.remove('aaa')
+              this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.add('red')
+              this.$refs['thumbs_down_regular' + comm_id.toString()][0].classList.add('aaa')
 
-            this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.remove('green')
-            this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.add('aaa')
+              this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.remove('green')
+              this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.add('aaa')
 
-            this.$refs['thumbs_up_regular' + comm_id.toString()][0].classList.remove('aaa')
-        }  
-      }
-      else if (t == 'thumbs_down_solid'){
-        if (q[0].classList.length > 0){
-            this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.remove('red')
-            this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.add('aaa')
-            this.$refs['thumbs_down_regular' + comm_id.toString()][0].classList.remove('aaa')
+              this.$refs['thumbs_up_regular' + comm_id.toString()][0].classList.remove('aaa')
+          }  
+        }
+        else if (t == 'thumbs_down_solid'){
+          if (q[0].classList.length > 0){
+              this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.remove('red')
+              this.$refs['thumbs_down_solid' + comm_id.toString()][0].classList.add('aaa')
+              this.$refs['thumbs_down_regular' + comm_id.toString()][0].classList.remove('aaa')
 
-            this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.add('aaa')
-            this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.remove('green')
-        }  
+              this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.add('aaa')
+              this.$refs['thumbs_up_solid' + comm_id.toString()][0].classList.remove('green')
+          }  
+        }
       }
     },
 

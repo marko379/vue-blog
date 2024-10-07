@@ -40,6 +40,7 @@ const routes = [
     path: '/books-checkout/',
     name: 'checkout',
     component: BuyBooksView
+
   },
   {
     // path: '/search-results/:data',

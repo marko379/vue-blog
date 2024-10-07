@@ -18,14 +18,11 @@
 
 </style>
 
-
-
-
-
 <script>
 import axios from 'axios'
 
 export default {
+    // props are coming from home view 
     props: ['bookName','bookPrice','bookPhoto','slug'],
     // emits: ["close","myComment"],
     name: 'Basket',
@@ -39,7 +36,7 @@ export default {
         }
     },
     methods: {
-
+      
       bookToBasket(bookName,bookPrice,bookPhoto,slug){
         this.l.push(bookName)
         this.l.push(bookPrice)
@@ -60,7 +57,7 @@ export default {
       },
 
       addBookPopUpMsg(){
-        this.$store.commit('showMsgBasket','book in the basket')
+        this.$store.commit('showMsgBasket','book added in the basket')
       } 
 
 

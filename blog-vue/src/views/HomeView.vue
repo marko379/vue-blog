@@ -10,6 +10,9 @@
 
         <h1 class="title is-5">{{article.name}}</h1>
         <div class="basket-container">
+          <!-- every book on home page will have basket button(component basket.vue) and attached book's components(slug, name, etc)
+               basket component is here for reduce line of code, and also can be reusable in other views etc
+          -->
           <Basket :slug="article.slug" :bookName="article.name" :bookPhoto="article.image_path" :bookPrice="article.price"/>
         </div>
         <div class="stars-home-view-container">
@@ -19,7 +22,6 @@
           <h1 class="title is-5">{{article.num_of_comments}} reviews</h1>
         </div>
         
-
     </div>
     <div class="container"></div>
     <div class="container"></div>
@@ -52,7 +54,7 @@ body{
 }
 
 // .basket-container{
-//   width: 200px;
+//   border:dotted;
 // }
 
 .msg-for-succsefully-created-user{
@@ -136,7 +138,7 @@ export default {
 
     methods: {
       async getArticles(){
-        // 'http://127.0.0.1:8000/' base url in main.js
+        // axios =  'http://127.0.0.1:8000/' base url in main.js(django server)
         await axios.get('articles/').then(response => {this.Articles = response.data}).catch(error => {console.log(error)})
       },
     }

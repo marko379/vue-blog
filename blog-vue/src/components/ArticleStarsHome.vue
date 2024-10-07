@@ -1,14 +1,18 @@
 <template>
 
+<!-- this template is to show stars of every book on the home page -->
 
 <div class="stars-container-home-view">
 
     <div class="book-grade">
-		<h1 class="title is-5 " @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{bookAvergeRate}} </h1>
+        <!-- @mouseover="showStarsDatails" @mouseleave="removeStarsDatails" = not used -->
+		<h1 class="title is-5" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{bookAvergeRate}} </h1>
 	</div>
 
+    <!-- @mouseover="showStarsDatails" @mouseleave="removeStarsDatails" = not used -->
     <div class="stars-home-view" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">
-
+            <!-- every div represents 5 stars , depends of rating number which div will be shown,
+            only one div will be shown -->
             <div class="no-star" v-show="bookAvergeRate  < 1">
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
                 <font-awesome-icon icon="fa-solid fa-star"   size="lg"/>
@@ -96,7 +100,8 @@
 </div>
 
 <div class="ratings">
-    <h1 class="title is-5 " @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{totalReviews}} ratings </h1>
+    <!-- @mouseover="showStarsDatails" @mouseleave="removeStarsDatails" = not used -->
+    <h1 class="title is-5" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{totalReviews}} ratings </h1>
 </div>
 
 
@@ -121,6 +126,7 @@
 
 .stars-home-view{
 	margin-left: 3px;
+    // border: solid;
 }
 
 

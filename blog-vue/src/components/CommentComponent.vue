@@ -76,7 +76,7 @@
 
 <script>
 import axios from 'axios'
-
+// one of emits function is to send data from child to parent component
 export default {
     props: ['slugg'],
     emits: ["close","myComment"],

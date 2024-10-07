@@ -19,16 +19,20 @@ export default createStore({
   },
   getters: {
   },
-  mutations: {    
+  mutations: {
+    // when here changes happens... then changes will happen everywhere in the app  
     addBookToBasket(state,l){
       state.count++
       localStorage.setItem('count' , state.count)
+      // state.basketList.push({'book-name':l[0],'price':l[1],'book-photo':l[2],'slug':l[3]}) object is pushed in js list
       state.basketList.push({'book-name':l[0],'price':l[1],'book-photo':l[2],'slug':l[3]})
     },
     removeFromBasketStore(state,removeItemIndex){
       state.count--
       localStorage.setItem('count' , state.count)
       state.basketList.splice(removeItemIndex, 1);
+      // this is js code , method recives removeItemIndex(number) from app.vue  "remove" button in basket,then that num is used to 
+      // remove indexed book from state.basketList 
     },
     addPriceStore(state,addPrice){
       state.totalPrice += parseFloat(addPrice)

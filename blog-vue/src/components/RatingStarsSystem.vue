@@ -14,7 +14,7 @@
         <h4 class="subtitle is-4">rate this book</h4>
     </div> 
 
-    <button class="button is-medium is-fullwidth is-success is-rounded button-buy-this-book" @click="openModal">buy this book</button> 
+    <!-- <button class="button is-medium is-fullwidth is-success is-rounded button-buy-this-book" @click="openModal">buy this book</button>  -->
 
 </div>
 
@@ -128,6 +128,8 @@ export default {
 
             }
             else{
+                console.log(this.$refs['one'].$el)
+                // this.$refs['one'].$el.classList.remove('starr')
                 this.showMessagex()
             }
 
