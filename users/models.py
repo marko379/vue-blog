@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw,ImageOps
 
 class User_photo(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True, null=True)
-	user_img = models.ImageField(default='user_profile_images/brave.jpeg' ,upload_to='user_profile_images/',blank=True, null=True)
+	user_img = models.ImageField(default='user_profile_images/10.jpg' ,upload_to='user_profile_images/',blank=True, null=True)
 	avatar_photo = models.ImageField(default='avatar_images/avatar.png',upload_to='avatar_images/',blank=True, null=True)
 	# user_img = models.ImageField(upload_to='user_profile_images/', default='avatar.png' ,blank=True, null=True)
 	# avatar_photo = models.ImageField(upload_to='avatar_images/', default='avatar.png',blank=True, null=True)
