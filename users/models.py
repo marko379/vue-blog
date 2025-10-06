@@ -34,7 +34,7 @@ class User_photo(models.Model):
 		return 'https://vue-blog-production.up.railway.app' + self.user_img.url
 
 	def image_avatar_path(self):
-		# return 'http://127.0.0.1:8000' + self.avatar_photo.url
+		return 'http://127.0.0.1:8000' + self.avatar_photo.url
 		return 'https://vue-blog-production.up.railway.app' + self.avatar_photo.url
 
 
