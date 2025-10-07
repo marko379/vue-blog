@@ -13,21 +13,38 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from django.contrib import admin
+# from django.urls import path,include, re_path
+# from django.conf import settings
+# from django.conf.urls.static import static
+
+# # added
+# from . import views
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('articles/', include('articles.urls')),
+#     path('users/', include('users.urls')),
+#     path('', views.index, name='home'),
+
+#     #  Catch-all route for Vue frontend
+#     re_path(r'^(?:.*)/?$', views.index, name='vue_frontend'),
+    
+# ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+
+
 from django.contrib import admin
-from django.urls import path,include, re_path
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-
-# added
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('articles/', include('articles.urls')),
-    path('users/', include('users.urls')),
+    path('api/articles/', include('articles.urls')),
+    path('api/users/', include('users.urls')),
     path('', views.index, name='home'),
 
-    #  Catch-all route for Vue frontend
-    re_path(r'^(?:.*)/?$', views.index, name='vue_frontend'),
-    
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+    # Catch-all route for Vue frontend
+    re_path(r'^(?!api|admin|static).*$', views.index, name='vue_frontend'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
