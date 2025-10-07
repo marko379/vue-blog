@@ -26,5 +26,8 @@ urlpatterns = [
     path('articles/', include('articles.urls')),
     path('users/', include('users.urls')),
     path('', views.index, name='home'),
+
+    #  Catch-all route for Vue frontend
+    re_path(r'^(?:.*)/?$', views.index, name='vue_frontend'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
