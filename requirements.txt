@@ -35,13 +35,3 @@ urllib3==1.26.9
 virtualenv==20.4.3
 whitenoise==6.1.0
 
-
-
-__pycache__/
-*.pyc
-
-
-venv/
-
-db.sqlite3
-
