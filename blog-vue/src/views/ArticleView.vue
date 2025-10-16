@@ -213,7 +213,7 @@ export default {
       // when is app mounted i can accsess this.$route.params.slug 
       // i am passing slug trough my HomeView..... name: 'article' ,  params: {slug: article.slug}
       const userID = this.$cookies.get("userID")
-        axios.get(`/articles/${this.$route.params.slug}/`).then(response => {this.Article = response.data}).catch(error => {console.log(error)})
+        axios.get(`/api/articles/${this.$route.params.slug}/`).then(response => {this.Article = response.data}).catch(error => {console.log(error)})
 
     },
     // slug = get_comments  =  this.showComments(this.$route.params.slug)
