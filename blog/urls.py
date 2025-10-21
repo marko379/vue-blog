@@ -41,10 +41,10 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/articles/', include('articles.urls')),
-    path('api/users/', include('users.urls')),
+    path('articles/', include('articles.urls')),
+    path('users/', include('users.urls')),
     path('', views.index, name='home'),
 
     # Catch-all route for Vue frontend
-    re_path(r'^(?!api|admin|static).*$', views.index, name='vue_frontend'),
+    re_path(r'^(?!admin|static).*$', views.index, name='vue_frontend'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
