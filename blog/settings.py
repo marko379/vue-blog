@@ -14,6 +14,20 @@ from pathlib import Path
 import os
 
 
+
+if os.getenv('RAILWAY_ENVIRONMENT'):
+    INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
+
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+        'API_KEY': os.getenv('CLOUD_API_KEY'),
+        'API_SECRET': os.getenv('CLOUD_API_SECRET'),
+    }
+
+
+ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,6 +42,10 @@ SECRET_KEY = 'django-insecure-e=_1o1#$8cqq9knmw6h*v-_lo%7j287(muyyrt(ib@!+_)!t!5
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://vue-blog-production.up.railway.app",
+]
 
 
 # Application definition
@@ -45,6 +63,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'articles',
     'users',
+    'cloudinary',
+    'cloudinary_storage'
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -180,4 +200,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication', 
     ]
+}
+
+
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUD_API_KEY'),
+    'API_SECRET': os.getenv('CLOUD_API_SECRET'),
 }
