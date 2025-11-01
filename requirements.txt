@@ -30,7 +30,7 @@ psycopg2-binary==2.9.10
 PyJWT==2.6.0
 python-dateutil==2.8.2
 pytz==2019.3
-requests==2.32.5
+requests
 s3transfer==0.5.2
 shortuuid==1.0.1
 six==1.15.0
