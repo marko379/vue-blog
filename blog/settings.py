@@ -264,18 +264,29 @@ INSTALLED_APPS = [
     'users',
 ]
 
-# Add cloudinary apps only if environment variables exist
-if os.getenv('CLOUD_NAME') and os.getenv('CLOUD_API_KEY') and os.getenv('CLOUD_API_SECRET'):
-    INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
-    CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.getenv('CLOUD_NAME'),
-        'API_KEY': os.getenv('CLOUD_API_KEY'),
-        'API_SECRET': os.getenv('CLOUD_API_SECRET'),
-    }
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-else:
-    # Local dev fallback
-    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME', ''),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY', ''),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET', '')
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# # Add cloudinary apps only if environment variables exist
+# if os.getenv('CLOUD_NAME') and os.getenv('CLOUD_API_KEY') and os.getenv('CLOUD_API_SECRET'):
+#     INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
+#     CLOUDINARY_STORAGE = {
+#         'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+#         'API_KEY': os.getenv('CLOUD_API_KEY'),
+#         'API_SECRET': os.getenv('CLOUD_API_SECRET'),
+#     }
+#     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# else:
+#     # Local dev fallback
+#     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # -------------------------
 # MIDDLEWARE
