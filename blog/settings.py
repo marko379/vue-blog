@@ -18,6 +18,24 @@ import cloudinary.api
 from cloudinary.storage import MediaCloudinaryStorage
 
 
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'articles',
+    'users',
+    'cloudinary',
+    'cloudinary_storage'
+]
+
+
 
 if os.getenv('RAILWAY_ENVIRONMENT'):
     INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
@@ -27,8 +45,10 @@ if os.getenv('RAILWAY_ENVIRONMENT'):
         'API_KEY': os.getenv('CLOUD_API_KEY'),
         'API_SECRET': os.getenv('CLOUD_API_SECRET')
     }
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    # Local dev fallback
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -51,24 +71,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 
-# Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'rest_framework',
-    'rest_framework.authtoken',
-    'corsheaders',
-    'articles',
-    'users',
-    'cloudinary',
-    'cloudinary_storage'
-]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
@@ -208,8 +211,8 @@ REST_FRAMEWORK = {
 
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.getenv('CLOUD_NAME'),
-    'API_KEY': os.getenv('CLOUD_API_KEY'),
-    'API_SECRET': os.getenv('CLOUD_API_SECRET'),
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': os.getenv('CLOUD_NAME'),
+#     'API_KEY': os.getenv('CLOUD_API_KEY'),
+#     'API_SECRET': os.getenv('CLOUD_API_SECRET'),
+# }
