@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
-import cloudinary
-from cloudinary_storage.storage import MediaCloudinaryStorage
+# import cloudinary
+# from cloudinary_storage.storage import MediaCloudinaryStorage
 
 # -------------------------
 # BASE DIRECTORY
@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'articles',
     'users',
+    'cloudinary_storage',
+    'cloudinary'
 ]
 
 # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
@@ -62,6 +64,10 @@ if cloud_name and api_key and api_secret:
 else:
     print("Cloudinary env vars missing, falling back to local storage")
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+
+from cloudinary_storage.storage import MediaCloudinaryStorage
+import cloudinary
 
 # -------------------------
 # MIDDLEWARE
