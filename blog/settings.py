@@ -3,9 +3,9 @@ import os
 # import cloudinary
 # from cloudinary_storage.storage import MediaCloudinaryStorage
 
-# -------------------------
+# ------------------------
 # BASE DIRECTORY
-# -------------------------
+# ------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # -------------------------
