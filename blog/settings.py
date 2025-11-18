@@ -36,8 +36,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'articles',
     'users',
-    'cloudinary_storage',
-    'cloudinary'
 ]
 
 cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME')
