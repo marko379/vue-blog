@@ -40,34 +40,29 @@ INSTALLED_APPS = [
     'cloudinary'
 ]
 
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
-#     'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
-#     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET')
-# }
-
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
 cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME')
-api_key = os.getenv('CLOUDINARY_API_KEY')
+api_key    = os.getenv('CLOUDINARY_API_KEY')
 api_secret = os.getenv('CLOUDINARY_API_SECRET')
 
 if cloud_name and api_key and api_secret:
+    # Only add the apps and configure storage if credentials are present
+    INSTALLED_APPS += [
+        'cloudinary_storage',
+        'cloudinary',
+    ]
+
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': cloud_name,
         'API_KEY': api_key,
         'API_SECRET': api_secret,
     }
+
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    print("Cloudinary storage ENABLED")
+
 else:
-    print("Cloudinary env vars missing, falling back to local storage")
+    print("Cloudinary credentials missing → using local FileSystemStorage")
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-
-
-from cloudinary_storage.storage import MediaCloudinaryStorage
-import cloudinary
 
 # -------------------------
 # MIDDLEWARE
