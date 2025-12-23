@@ -28,7 +28,7 @@ class Article(models.Model):
 	writer = models.CharField(max_length=70,null=True)
 	category = models.ManyToManyField(Category,blank=True,related_name='book_category')
 	name = models.CharField(max_length=255)
-	slug = models.SlugField(blank=True, null=True)
+	slug = models.SlugField(max_length=255,blank=True, null=True)
 	description = models.TextField(blank=True, null=True)
 	image = models.ImageField(upload_to='article_images/',blank=True, null=True) # upload_to='uploads/',
 	date_added = models.DateTimeField(auto_now_add=True)
@@ -41,8 +41,11 @@ class Article(models.Model):
 	# you can accsess methods in views and vue template
 	# 'http://127.0.0.1:8000' = django server,basiclly go there and get photo
 	def image_path(self):
-		# return 'http://127.0.0.1:8000' + self.image.url
-		return 'https://vue-blog-production.up.railway.app' + self.image.url
+	# Check if the article actually has an image
+		if self.image:                                   # ← if there IS an image
+			return self.image.url                        # ← this is already the full https://res.cloudinary.com/... URL
+		else:                                            # ← if there is NO image
+			return '/static/img/default-book.jpg'        # ← fallback picture (put one in static/img/)
 
 	def description_1st_part(self):
 		if len(self.description) > 410:
@@ -83,7 +86,8 @@ class Books_in_Basket(models.Model):
 
 	def image_path(self):
 		# return 'http://127.0.0.1:8000' + self.basket.image.url
-		return 'https://vue-blog-production.up.railway.app' + self.basket.image.url
+		# return 'https://vue-blog-production.up.railway.app' + self.basket.image.url
+		return self.image.url if self.image else '/static/img/no-image.jpg'
 
 
 
@@ -114,9 +118,9 @@ class Comments(models.Model):
 
 	def user_photo(self):
 		if self.user:
-			# return 'http://127.0.0.1:8000' + self.user.user_photo.avatar_photo.url
-			return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.avatar_photo.url
+			return self.user.user_photo.user_img.url
 		else:
+			print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 			return 'https://vue-blog-production.up.railway.app' + settings.MEDIA_URL  + 'avatar.png'
 
 	def datepublished(self):
@@ -211,5 +215,3 @@ class Users_stars(models.Model):
 
 	def korisnikova_ocjena(self):
 		return self.stars
-
-

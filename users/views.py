@@ -40,17 +40,28 @@ def register_api_2(request):
                 user_photo_form = User_photo_form(request.POST,request.FILES)
                 if user_photo_form.is_valid():
                     photo_user = user_photo_form.save(commit=False)
+
                     if request.FILES['image']:
                         photo_user.user_img = request.FILES['image']
                     filepath = request.FILES.get('filepath', False)
-                    if filepath:
-                        photo_user.avatar_photo = request.FILES['filepath']
-                    elif not filepath:
-                        photo_user.avatar_photo = request.FILES['avatar']
-                    photo_user.user = form.instance
-                    photo_user.save()
+                    photo_user.user = form.instance # aditonal added
+                    photo_user.save() # aditonal added
+                    # if filepath:
+                    #     photo_user.avatar_photo = request.FILES['filepath']
+                    # elif not filepath:
+                    #     photo_user.avatar_photo = request.FILES['avatar']
+                    # photo_user.user = form.instance
+                    # photo_user.save()
             else:
-                user_photo = User_photo.objects.create(user=form.instance,user_img='user_profile_images/avatar.png',avatar_photo="avatar_images/avatar.png")
+                default_user_img = ''   # this is the **public_id**
+                default_avatar = '123456789'
+
+                user_photo = User_photo.objects.create(
+                    user=form.instance,
+                    user_img=default_user_img,
+                    avatar_photo=default_avatar
+                ) # 
+                              
             return Response({'success': 'user created' , 'name_of_user': username})
         else:
             return HttpResponse(form.errors.as_json())
@@ -64,7 +75,11 @@ def login_api(request):
     if user is not None:
         user_id = Token.objects.get(user__id=user.id)
         login(request, user)
-        user_photo = User_photo.objects.get(user__id=user.id).image_avatar_path()
+        # user_photo = User_photo.objects.get(user__id=user.id).image_avatar_path()
+        user_photo = User_photo.objects.get(user__id=user.id).image_path()
+        print(user_photo,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+
+
 
         content = {
             'user': str(user.username),

@@ -6,6 +6,7 @@ from .models import Category, Article, Comments,Users_stars , Rating_star_system
 # this willl be returned in views as """"return Response(serializer.data)""""
 class Article_Serializer(serializers.ModelSerializer):
     tracks = serializers.StringRelatedField(many=True)
+    image_path = serializers.SerializerMethodField()  # new
     class Meta:
         model = Article
         fields = (
@@ -25,6 +26,9 @@ class Article_Serializer(serializers.ModelSerializer):
             "image_path",
             "writer"
         )
+    
+    def get_image_path(self, obj): # new
+        return obj.image_path()
 
 class Book_in_Basket_Serializer(serializers.ModelSerializer):
     class Meta:

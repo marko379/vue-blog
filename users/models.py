@@ -2,40 +2,39 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import User,AbstractUser
 from PIL import Image, ImageDraw,ImageOps
-# import numpy as np
+import cloudinary
+from cloudinary.models import CloudinaryField
+import cloudinary.uploader
+import cloudinary.api	
 
 
 
 class User_photo(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True, null=True)
-	user_img = models.ImageField(default='user_profile_images/10.jpg' ,upload_to='user_profile_images/',blank=True, null=True)
-	avatar_photo = models.ImageField(default='avatar_images/avatar.png',upload_to='avatar_images/',blank=True, null=True)
-	# user_img = models.ImageField(upload_to='user_profile_images/', default='avatar.png' ,blank=True, null=True)
-	# avatar_photo = models.ImageField(upload_to='avatar_images/', default='avatar.png',blank=True, null=True)
-	# user_img = models.ImageField(default='user_profile_images/brave.jpeg' ,upload_to='user_profile_images/')
-	# avatar_photo = models.ImageField(default='avatar_images/avatar.png',upload_to='avatar_images/')
 
-	def save(self,*args, **kwargs):
-		super().save(*args, **kwargs)  # saving image first
-		if self.user_img:
-			img = Image.open(self.user_img.path) # Open user_img using self
-			img = ImageOps.exif_transpose(img)
-			# if img.width > img.height:
-			# 	img = img.rotate(-90,expand=True)
+	user_img = CloudinaryField(
+		'user_profile',
+		folder='media/user_profile_images',
+		transformation={'width': 450, 'height': 450, 'crop': 'limit', 'quality': 'auto'},
+		blank=True,
+		null=True
+	)	
+	avatar_photo = CloudinaryField('avatar',folder='media/avatar_images', blank=True, null=True)
 
-
-			if img.height > 450 or img.width > 450:
-				new_img = (450,445 )
-				img.thumbnail(new_img)
-				img.save(self.user_img.path)  # saving user_img at the same path
 
 	def image_path(self):
-		# return 'http://127.0.0.1:8000' + self.user_img.url
-		return 'https://vue-blog-production.up.railway.app' + self.user_img.url
+		if self.user_img and self.user_img.url:
+			return self.user_img.url
+		else:
+			# return '/static/10.jpg'   # make sure this file exists!
+			return self.avatar_photo.url  # make sure this file exists!
+
 
 	def image_avatar_path(self):
-		return 'http://127.0.0.1:8000' + self.avatar_photo.url
-		return 'https://vue-blog-production.up.railway.app' + self.avatar_photo.url
+		if self.avatar_photo and self.avatar_photo.url:
+			return self.avatar_photo.url
+		else:
+			return '/static/10.jpg'    # your default avatar
 
 
 	def __str__(self):
@@ -45,13 +44,15 @@ class User_photo(models.Model):
 			return 'unknown'
 
 
+
 	
 
 class MyUserModel(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	def user_profile_photo(self):
+		self.user_img.url
 		# return 'http://127.0.0.1:8000' + self.user.user_photo.user_img.url
-		return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.user_img.url
+		# return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.user_img.url
 
 	def user_profile_username(self):
 		return self.user.username
@@ -76,6 +77,4 @@ class Exe(models.Model):
 			return self.text[:10]
 		else:
 			return 'no text available'
-
-
 

@@ -1,7 +1,16 @@
 from pathlib import Path
 import os
-# import cloudinary
-# from cloudinary_storage.storage import MediaCloudinaryStorage
+from decouple import config
+import cloudinary
+
+cloudinary.config(
+    cloud_name=config('CLOUDINARY_CLOUD_NAME'),
+    api_key=config('CLOUDINARY_API_KEY'),
+    api_secret=config('CLOUDINARY_API_SECRET'),
+    secure=True
+)
+
+
 
 # ------------------------
 # BASE DIRECTORY
@@ -38,12 +47,13 @@ INSTALLED_APPS = [
     'users',
 ]
 
-cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME')
-api_key    = os.getenv('CLOUDINARY_API_KEY')
-api_secret = os.getenv('CLOUDINARY_API_SECRET')
+
+cloud_name = config('CLOUDINARY_CLOUD_NAME', default=None)
+api_key    = config('CLOUDINARY_API_KEY', default=None)
+api_secret = config('CLOUDINARY_API_SECRET', default=None)
+
 
 if cloud_name and api_key and api_secret:
-    # Only add the apps and configure storage if credentials are present
     INSTALLED_APPS += [
         'cloudinary_storage',
         'cloudinary',
@@ -53,6 +63,7 @@ if cloud_name and api_key and api_secret:
         'CLOUD_NAME': cloud_name,
         'API_KEY': api_key,
         'API_SECRET': api_secret,
+        'UPLOAD_PRESET': 'django'
     }
 
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
