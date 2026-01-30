@@ -45,7 +45,8 @@
             <button class="button is-fullwidth is-success is-large" @click="showModalApp">checkout £{{$store.state.totalPrice.toFixed(2)}}</button>
           </div>
           <div class="popout-basket-button" v-else>
-            <h1 class="title is-1">There are not any books in the basket yet :(</h1>
+            <h1 class="title is-1">Basket is empty!</h1>
+            <h1 class="title is-1">🙁</h1>
           </div>
           <div class="basket-items-container">
             <div v-for="item , index in $store.state.basketList">

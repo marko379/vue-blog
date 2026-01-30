@@ -10,8 +10,15 @@
     <h1 class="title is-5">Email: {{email}}</h1>
     <img :src="user_photo" alt="no photo" width="200">
     <br>
-    <button class="button is-medium is-danger is-rounded" @click="showModalProfile">delete this profile</button>    
+    <button class="button is-medium is-danger is-rounded" @click="showModalProfile">delete this profile</button>   
+
   </div>
+</div>
+
+
+<div>
+  <p>aaaaaaaaa</p>
+  <input type="file" @change="uploadImage" />
 </div>
 
 
@@ -55,6 +62,7 @@ body{
 
 <script>
 import axios from 'axios'
+import Cropper from 'cropperjs'
 export default {
   name: 'UserViewProfile',
     data() {
@@ -92,18 +100,43 @@ export default {
           this.$cookies.remove("userID")
           this.$cookies.remove("user-succsess")
           this.$cookies.remove("user-token")
-          localStorage.removeItem('myPhoto');
-          this.$router.go(0)
+          localStorage.removeItem('myPhoto')
+          window.location.href = '/login?deleted=true';
+
       },
-      deleteProfile(){
-        const data = new FormData()
-        data.append('userID', this.userID = this.$cookies.get("userID"))
-        axios.post("users/delete-profile/",data).then(this.logoutAfterDelete())
-        .catch(error => {console.log(error)})
+
+      deleteProfile() {
+        this.userToken = this.$cookies.get("user-token");
+        
+        axios.delete("users/delete-profile/", {
+          headers: {
+            'Authorization': `Token ${this.userToken}`
+          }
+        })
+        .then(response => {this.removeModalProfile(),  this.logoutAfterDelete()})
+        .catch(error => {
+          console.log(error);
+        });
       },
+
       removeModalProfile(){
         this.$refs.modalProfile.classList.remove('is-active')
-      }
+      },
+      uploadImage(e){
+        const file = e.target.files[0];
+        const data = new FormData();
+        data.append('image', file);
+
+        axios.post('/users/change_user_photo/', data, {
+          headers: {
+          'Authorization': `Token ${this.$cookies.get('user-token')}`
+          
+        }
+      }).then(response => {console.log('Success:', response.data)
+
+})
+
+      },
     }
 }
 </script>

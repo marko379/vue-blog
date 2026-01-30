@@ -13,4 +13,3 @@ urlpatterns = [
     # Catch-all route for Vue frontend
     re_path(r'^(?!admin|static).*$', views.index, name='vue_frontend'),
 ] # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

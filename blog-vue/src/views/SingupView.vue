@@ -31,6 +31,7 @@
                     <p v-for="error in errors" v-bind:key="error">{{ error }}</p>
                 </div>
 
+                <!-- this is just to select file -->
                 <p>Optional</p>
                 <div class="file is-link">
                   <label class="file-label">
@@ -58,7 +59,7 @@
 
                     <div class="blob-slika">
                         <h3 class="title is-5" v-show="canvas==null">Make your avatar</h3>
-                        <img :src="avatar" class="rounded">
+                        <img :src="avatar"  class="rounded">
                         <h3 class="title is-5" v-show="canvas==null">you do not have avatar yet</h3>
                         <h3 class="title is-5" v-show="canvas!=null">your avatar</h3>
                     </div>
@@ -78,12 +79,9 @@
         </div>
     </div>
 
-
 </div>
 
-
 </template>
-
 
 
 <style lang="scss">

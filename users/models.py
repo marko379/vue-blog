@@ -10,7 +10,8 @@ import cloudinary.api
 
 
 class User_photo(models.Model):
-	user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True, null=True)
+	
+	user  = models.OneToOneField(User, on_delete=models.CASCADE,blank=True, null=True)
 
 	user_img = CloudinaryField(
 		'user_profile',
@@ -35,6 +36,13 @@ class User_photo(models.Model):
 			return self.avatar_photo.url
 		else:
 			return '/static/10.jpg'    # your default avatar
+
+
+	def change_users_photo(self):
+		print(self.user_img)
+
+
+	
 
 
 	def __str__(self):

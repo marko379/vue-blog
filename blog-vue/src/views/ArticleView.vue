@@ -1,6 +1,7 @@
 <template>
 
 <div class="main-article-container">
+
   <div class="imagee-2">
     <div class="imagee">
       <div class="pic">

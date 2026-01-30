@@ -11,4 +11,7 @@ urlpatterns = [
     path('profile-user/', views.UserView.as_view()),
     path('exe/', views.ExeView),
     path('new/', views.NewView.as_view()),
+
+
+    path('change_user_photo/', views.change_photo),
 ]

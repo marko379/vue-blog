@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from .serializers import RegisterSerilizer,UserSerializer,UserViewSerializer,User_photoSerilizer
 from django.contrib.auth.password_validation import validate_password
 from django.http import HttpResponse
@@ -18,6 +18,12 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from django.contrib.sessions.models import Session
+from PIL import Image
+from io import BytesIO
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.storage import default_storage
+from rest_framework import status
+
 
 
 @api_view(['POST'])
@@ -46,12 +52,6 @@ def register_api_2(request):
                     filepath = request.FILES.get('filepath', False)
                     photo_user.user = form.instance # aditonal added
                     photo_user.save() # aditonal added
-                    # if filepath:
-                    #     photo_user.avatar_photo = request.FILES['filepath']
-                    # elif not filepath:
-                    #     photo_user.avatar_photo = request.FILES['avatar']
-                    # photo_user.user = form.instance
-                    # photo_user.save()
             else:
                 default_user_img = ''   # this is the **public_id**
                 default_avatar = '123456789'
@@ -77,7 +77,6 @@ def login_api(request):
         login(request, user)
         # user_photo = User_photo.objects.get(user__id=user.id).image_avatar_path()
         user_photo = User_photo.objects.get(user__id=user.id).image_path()
-        print(user_photo,'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 
 
 
@@ -109,13 +108,32 @@ class UserView(APIView):
         }
         return Response(content)
 
-@api_view(['POST'])
+# @api_view(['POST'])
+# def delete_user(request):
+#     if request.method == 'POST':
+#         user_id = request.data["userID"]
+#         user_photo = User_photo.objects.get(user__id=user_id).delete()
+#         user = User.objects.get(id=user_id).delete()
+#         return Response('succsess')
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def delete_user(request):
-    if request.method == 'POST':
-        user_id = request.data["userID"]
-        user_photo = User_photo.objects.get(user__id=user_id).delete()
-        user = User.objects.get(id=user_id).delete()
-        return Response('succsess')
+    try:
+        request.user.delete()
+        return Response({
+        'status': 'ok',
+        'message': 'Your account has been deleted'
+        }, status = status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {"status": "error", "message": "Deletion failed. Please try again!"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+
 
 
 @api_view(['POST'])
@@ -126,9 +144,9 @@ def ExeView(request):  # use APIview or function based view or any view u want
         text = request.data["text"]
         xxx = Exe.objects.create(text=text,img=file1)
         xxx.save()
-        return HttpResponse('UserNone')
+        return Response('UserNone')
     else:
-        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+        print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 
 
 
@@ -141,4 +159,41 @@ class NewView(APIView):
             'auth': str(request.auth),  # None
         }
         return Response(content)
+
+# DJANGO ALWAYS CHECK IF USER IS LOGGED IN OR NOT, ON EVERY REQUEST, DOSE NOT MATTER IF FUNCTION 
+# HAS ANYTHING TO DO USERS OR NOT, IF U PASS TOKEN OR USER_ID OR USERNAME U CAN ACCSES USER,
+# BEST PRACTICE IS WITH TOKEN , HOW IT WORKS? ONCE USER CREATE PROFILE TOKEN IS ASSINGED TO USER, 
+# THAT TOKEN U NEED TO STORE IN COOKIES OR LOCAL STORAGE, SO U NEED TO USE ONE OF THOSE 3(cokkies or 
+# local storage or seesion storage, ), 
+# when cookies are stored in broswer, if u interact  let say with facebook
+# every time u do different HTTP requests on facebpook, all cookies will be included in those requests
+# so tahts how u can accses request user if user is logged in, every time u do something on page ,
+# cookies will be sent 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def change_photo(request):
+    if 'image' not in request.FILES:
+        return Response({"error": "No image provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+    uploaded_file = request.FILES['image']
+
+    # if file is bigger then 5 mb
+    if uploaded_file.size > 5 * 1024 * 1024: 
+        return Response({"error": "Image too large (max 5MB)"}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        user_photo = User_photo.objects.get(user=request.user)
+        user_photo.user_img = uploaded_file
+        user_photo.save()
+
+        return Response({
+            "message": "Photo updated successfully",
+            "photo_url": user_photo.image_path()
+        }, status=status.HTTP_200_OK)
+
+    except User_photo.DoesNotExist:
+        return Response({"error": "User profile not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+
 

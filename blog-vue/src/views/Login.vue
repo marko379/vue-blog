@@ -69,6 +69,18 @@ export default {
         }
     },
 
+    //  after user delete profile this will be executed
+    mounted() {
+      if (this.$route.query.deleted === 'true') {
+     
+        this.$store.commit('showMsg', 'User removed successfully'); 
+        this.$router.replace({ query: {} });
+
+      }
+    },
+
+
+
     methods: {
         submitForm() {
             let self = this;
