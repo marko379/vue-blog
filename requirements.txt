@@ -41,3 +41,5 @@ urllib3==1.26.9
 virtualenv==20.4.3
 whitenoise==6.1.0
 python-decouple==3.8
+
+# force rebuild after gunicorn fix
