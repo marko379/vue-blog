@@ -16,9 +16,10 @@ library.add(fas,far,fab)
 import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/'
-// axios.defaults.baseURL = 'https://vue-blog-production.up.railway.app/'
 
+// axios.defaults.baseURL = 'http://127.0.0.1:8000/'
+// axios.defaults.baseURL = 'https://vue-blog-production.up.railway.app/'
+axios.defaults.baseURL = 'https://web-production-2f974.up.railway.app/'
 
 
 createApp(App).use(store).use(router,axios).use(VueCookies,VueCropper).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
