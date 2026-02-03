@@ -31,7 +31,7 @@ def register_api(request):
     serializer = RegisterSerilizer(data=request.data)
     serializer.is_valid(raise_exception=True)
     user = serializer.save()
-    return redirect ('https://vue-blog-production.up.railway.app/articles/')
+    return redirect ('https://web-production-2f974.up.railway.app/')
 
 
 @api_view(['POST'])
@@ -108,13 +108,6 @@ class UserView(APIView):
         }
         return Response(content)
 
-# @api_view(['POST'])
-# def delete_user(request):
-#     if request.method == 'POST':
-#         user_id = request.data["userID"]
-#         user_photo = User_photo.objects.get(user__id=user_id).delete()
-#         user = User.objects.get(id=user_id).delete()
-#         return Response('succsess')
 
 
 @api_view(['DELETE'])
