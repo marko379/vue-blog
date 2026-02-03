@@ -19,11 +19,15 @@ from django.db.models import Avg, Count, Min, Sum
 class LatestProductsList(APIView):
 
     def get(self, request, format=None):
-        articles = Article.objects.all()
-        # get all articles with your serializer 
-        serializer = Article_Serializer(articles, many=True)
-        # when is returned you can accsess those data in vue template
-        return Response(serializer.data)
+        try:
+            articles = Article.objects.all()
+            # get all articles with your serializer 
+            serializer = Article_Serializer(articles, many=True)
+            # when is returned you can accsess those data in vue template
+            return Response(serializer.data)
+        except Exception as e:
+            print("Error in articles_list:", str(e))  # log to Railway logs
+            return Response({"error": str(e)}, status=500)
 
 class Articlee(APIView):
     def get(self, request, slug):
