@@ -50,3 +50,6 @@ Thumbs.db
 *.log
 *.cache
 *.tmp
+
+user_passwords
+
