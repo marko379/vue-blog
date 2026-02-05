@@ -95,13 +95,13 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://127.0.0.1:8000",
     "http://localhost:8000",
-    "https://web-production-2f974.up.railway.app",
-    "https://book-shop-marko.up.railway.app/static/home-page",
-    "https://book-shop-marko.up.railway.app/home-page"
+    # "https://web-production-2f974.up.railway.app",
+    # "https://book-shop-marko.up.railway.app/static/home-page",
+    "https://book-shop-marko.up.railway.app"
 ]
 
-# CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = CORS_ALLOWED_ORIGINS
 
 # -------------------------

@@ -19,13 +19,13 @@ import 'cropperjs/dist/cropper.css';
 
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/'
 // axios.defaults.baseURL = 'https://vue-blog-production.up.railway.app/'
-// axios.defaults.baseURL = 'https://book-shop-marko.up.railway.app/'
+axios.defaults.baseURL = 'https://book-shop-marko.up.railway.app/'
 
-const isLocal = import.meta.env.MODE === 'development'
+// const isLocal = import.meta.env.MODE === 'development'
 
-axios.defaults.baseURL = isLocal
-  ? 'http://127.0.0.1:8000/'
-  : 'https://book-shop-marko.up.railway.app/'  // your current live backend
+// axios.defaults.baseURL = isLocal
+//   ? 'http://127.0.0.1:8000/'
+//   : 'https://book-shop-marko.up.railway.app/'  // your current live backend
 
 console.log('Axios baseURL set to:', axios.defaults.baseURL)  // check in console
 
