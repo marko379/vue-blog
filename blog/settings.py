@@ -27,7 +27,8 @@ ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-2f974.up.railway.app",
-    "https://book-shop-marko.up.railway.app"
+    "https://book-shop-marko.up.railway.app",
+    "https://*.railway.app",
 ]
 
 # -------------------------
