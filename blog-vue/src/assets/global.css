@@ -1,0 +1,8 @@
+body {
+  background-color: #F5F5F5;
+  color: #333333;
+}
+
+.section, .container, .card, .box, .modal-card {
+  background-color: #F5F5F5;
+}

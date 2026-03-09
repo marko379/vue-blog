@@ -29,10 +29,10 @@
           <ArticleStars :slug="$route.params.slug" :datax="datax" :totalStars="totalStars" :numOfComments="Comments.length"/>
         </div>
 
-        <div class="genre">
-          <h1 class="title is-6">Genres: </h1>
+        <div class="genre has-text-grey-dark">
+          <h1 class="title is-4 mr-4">Genres: </h1>
           <div v-for="category in Article.categories">
-            <h1 class="title is-6 is-italic genre-category"> {{category}} , </h1>
+            <h1 class="title is-4 is-italic genre-category mr-4">  {{category}} </h1>
           </div>
         </div>
 
@@ -60,7 +60,7 @@
 
 
 
-        <p>
+        <p class="has-text-weight-medium is-size-5" style="color:#444;">
           {{Article.description_1st_part}}
           <span @click="readMore" ref="readMoreLink" class="readxxx is-underlined">... read more</span>
           <span v-show="secondPart">{{Article.description_2nd_part}}

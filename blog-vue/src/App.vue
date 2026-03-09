@@ -173,6 +173,12 @@
 
 @import '@/assets/css/AppCss.css';
 
+body {
+  background-color: #F5F5F5;  /* soft white */
+  color: #333333;
+}
+
+
 </style>
 
 

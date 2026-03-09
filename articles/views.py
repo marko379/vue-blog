@@ -61,26 +61,48 @@ class BookByGenres(APIView):
         serializer = Article_Serializer(articless,many=True)
         return Response(serializer.data)
 
-@api_view(['POST'])
-def BookForCarousel(request):  # use APIview or function based view or any view u want
-    if request.method == 'POST':
+# @api_view(['POST'])
+# def BookForCarousel(request):  # use APIview or function based view or any view u want
+#     if request.method == 'POST':
 
-        answers_list = list(request.POST)
-        num = 0
-        while len(answers_list) <= 3:
-            add_value = answers_list[num]
-            answers_list.append(add_value)
-            num = num + 1 
+#         answers_list = list(request.POST)
+#         num = 0
+#         while len(answers_list) <= 3:
+#             add_value = answers_list[num]
+#             answers_list.append(add_value)
+#             num = num + 1 
         
 
+#         queryset = Article.objects.filter(
+#             Q(category__name__icontains=answers_list[0]) |
+#             Q(category__name__icontains=answers_list[1]) |
+#             Q(category__name__icontains=answers_list[2]) 
+#         ).distinct()[:9]
+
+#         serializer = Article_Serializer(queryset, many=True)
+
+#         return Response(serializer.data)
+
+
+@api_view(['GET'])
+def BookForCarousel(request):  # use APIview or function based view or any view u want
+
+        genre1 = request.GET.get('genre1', '')
+        genre2 = request.GET.get('genre2', '')
+        exclude_slug = request.GET.get('exclude_book_slug')
+
+
+        # queryset = Article.objects.filter(
+        # Q(category__name__icontains=genre1) | Q(category__name__icontains=genre2)).distinct()[:9].
         queryset = Article.objects.filter(
-            Q(category__name__icontains=answers_list[0]) |
-            Q(category__name__icontains=answers_list[1]) |
-            Q(category__name__icontains=answers_list[2]) 
-        ).distinct()[:9]
+            Q(category__name__icontains=genre1) |
+            Q(category__name__icontains=genre2)
+            ).exclude(slug=exclude_slug)
+        queryset = queryset.distinct()[:9]
+
+        print(queryset)
 
         serializer = Article_Serializer(queryset, many=True)
-
         return Response(serializer.data)
 
 

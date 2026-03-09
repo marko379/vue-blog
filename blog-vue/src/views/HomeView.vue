@@ -35,9 +35,10 @@
 
 <style lang="scss">
 
-body{
-  background-color: white;
-
+body {
+  background-color: #F5F5F5;  /* White Smoke, soft on eyes */
+  color: #333333;             /* Dark gray text for readability */
+  font-family: 'Segoe UI', sans-serif;  /* optional modern font */
 }
 
 .stars-home-view-container{
@@ -50,7 +51,8 @@ body{
 }
 
 .main-home{
-  background-color: white;
+  background-color: #F5F5F5;  /* White Smoke, soft on eyes */
+  color: #333333;
 }
 
 // .basket-container{
@@ -71,7 +73,8 @@ body{
   margin-top: 5px;
 }
 .container-articles{
-  background-color: white;
+  background-color: #F5F5F5;  /* White Smoke, soft on eyes */
+  color: #333333; 
   display: flex;
   max-width: 1400px;
   width: 100%;

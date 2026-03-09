@@ -1,4 +1,8 @@
-#
+
+.readxxx{
+  cursor: pointer;
+  color: #3273dc;
+}
 
 .aaa{
   display: none;
@@ -13,11 +17,15 @@
 .genre{
   display: flex;
   flex-wrap: wrap;
+  margin-top: 15px;
 
 }
 
 .genre-category{
-  margin-left: 2px;
+  text-decoration: underline;
+  margin-bottom: 10px;
+  text-decoration-color: #228B22;  /* underline color */
+  text-decoration-thickness: 2px; 
 }
 .tooltip .tooltiptext {
   visibility: hidden;
@@ -71,11 +79,14 @@ p{
 
 .main-container-2{
   width:100%;
+  /*border:solid purple;*/
 
 }
 
 .main-container{
   width:70%;
+  /*border: red solid;*/
+  flex: 0 0 70%;
   
 }
 
@@ -167,7 +178,7 @@ p{
 /*  // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
   display: flex;
   justify-content: space-between;
-/*  border:solid;*/
+  /*border:solid;*/
 }
 
 .Comment-Component{

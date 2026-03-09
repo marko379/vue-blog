@@ -235,10 +235,10 @@
     justify-content: center;
     padding-top: 19px;
     padding-bottom: 5px;
-    background-color: #f2f2f2;
     width: 100%;
-    // align-items: center;
-    // border: solid;
+    background-color:#DCDCDC;
+
+
 
 }
 
