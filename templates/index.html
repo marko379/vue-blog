@@ -1,1 +1,25 @@
-<!doctype html><html lang=""><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><title>blog-vue</title><script defer="defer" src="/js/chunk-vendors.7761c97e.js"></script><script defer="defer" src="/js/app.ee549fbb.js"></script><link href="/css/app.03a7eab7.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but blog-vue doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div></body></html>
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>blog-vue</title>
+  
+  <!-- Vue CSS -->
+  <link href="{% static 'vue/css/app.03a7eab7.css' %}" rel="stylesheet">
+
+  <!-- Vue JS -->
+  <script defer src="{% static 'vue/js/chunk-vendors.7761c97e.js' %}"></script>
+  <script defer src="{% static 'vue/js/app.ee549fbb.js' %}"></script>
+</head>
+<body>
+  <noscript>
+    <strong>We're sorry but blog-vue doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+  </noscript>
+
+  <!-- Vue mounts here -->
+  <div id="app"></div>
+</body>
+</html>
