@@ -26,15 +26,27 @@
         </div>
         <h1 class="title is-4 ">{{Article.writer}}</h1>
         <div class="vjezba">
-          <ArticleStars :slug="$route.params.slug" :datax="datax" :totalStars="totalStars" :numOfComments="Comments.length"/>
+          <!-- When Vue renders this, it builds and connect  with childs components automaticly
+             So Vue already knows: ArticleStars → parent is ArticleView 
+          @scroll-to-reviews → listen for event from child    
+          scrollToReviews → run this parent method   
+          when u click on yhis in your child component u acitvate it in your parrent component@click="$emit('scroll-to-reviews')">-->
+          <ArticleStars :slug="$route.params.slug" :datax="datax" :totalStars="totalStars" :numOfComments="Comments.length" @scroll-to-reviews="scrollToReviews"/>
         </div>
 
-        <div class="genre has-text-grey-dark">
-          <h1 class="title is-4 mr-4">Genres: </h1>
-          <div v-for="category in Article.categories">
-            <h1 class="title is-4 is-italic genre-category mr-4">  {{category}} </h1>
+
+          <div class="genre has-text-grey-dark">
+            <h1 class="title is-4 mr-4">Genres:</h1>
+            <div class="categories">
+              <router-link
+                v-for="category in Article.categories"
+                :key="category"
+                :to="{ name: 'search-book-by-genre', params: { genre: category } }"
+                class="title is-4 is-italic genre-category mr-4">
+                {{ category }}
+              </router-link>
+            </div>
           </div>
-        </div>
 
 
         <div class="modal" ref="modal">
@@ -85,7 +97,7 @@
 
         <hr>
 
-        <div class="comment-container">
+        <div class="comment-container" ref="reviews">
           <div class="comment-div" v-for="(comment,index) in Comments" :key="comment.id">
 
             <div class="comment-first-container">
@@ -417,6 +429,12 @@ export default {
     },
     removeModal(){
       this.$refs.modal.classList.remove('is-active')
+    },
+
+    scrollToReviews() {
+      this.$refs.reviews.scrollIntoView({
+        behavior: "smooth"
+      })
     }
 
   }

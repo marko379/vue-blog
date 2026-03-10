@@ -26,7 +26,15 @@
   margin-bottom: 10px;
   text-decoration-color: #228B22;  /* underline color */
   text-decoration-thickness: 2px; 
+  cursor: pointer;
 }
+
+.genre-category:hover {
+  color: #27ae60;                    /* darker green on hover */
+  text-decoration-color: #27ae60;    /* underline color changes too */
+}
+
+
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;

@@ -129,7 +129,11 @@
 
     <h1 class="title is-5 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{$store.state.showArticleTotalStars}}-ratings </h1>
 
-    <h1 class="title is-5 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{numOfComments}}-reviews </h1>
+
+    <h1 class="title is-5 ratings-grade-paragraf-2" style="text-decoration: none; cursor: pointer;"
+    @click="$emit('scroll-to-reviews')">
+        {{ numOfComments }}-reviews
+    </h1>
 
     <h1 v-show="$store.state.userStars != null" class="title is-5 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">your-rate: {{$store.state.userStars}} <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/></h1>
 
@@ -206,13 +210,15 @@
   // border: solid;
 }
 .aa{
-    // border:solid;
+
     // margin-left:5px;
     margin-top:4px;
+
 
 }
 .star-orange{
     color:orange;
+
 }
 
 .subtitle{
@@ -237,6 +243,7 @@
     padding-bottom: 5px;
     width: 100%;
     background-color:#DCDCDC;
+    border-radius: 8px;
 
 
 
@@ -264,6 +271,7 @@ export default {
 
     mounted(){
         this.showArticleStars(this.$route.params.slug)
+
     },
 
     methods: {
@@ -287,7 +295,7 @@ export default {
         },
         removeStarsDatails(){
             this.showStar = false
-        }
+        },
 
     }
 
