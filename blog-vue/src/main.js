@@ -18,9 +18,9 @@ import VueCropper from 'vue-cropperjs';
 import 'cropperjs/dist/cropper.css';
 
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/'
+// axios.defaults.baseURL = 'http://127.0.0.1:8000/'
 
-// axios.defaults.baseURL = 'https://book-shop-marko.up.railway.app/'
+axios.defaults.baseURL = 'https://book-shop-marko.up.railway.app/'
 
 
 
