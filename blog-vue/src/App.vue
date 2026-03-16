@@ -129,7 +129,7 @@
 
 
   <div class="message-pop-out" v-show="$store.state.popOutMsg != null">
-     <h1 class="title is-4 " >{{$store.state.popOutMsg}}</h1>
+     <h1 class="title is-3">{{$store.state.popOutMsg}}</h1>
   </div>
 
   <div class="message-pop-out-basket" v-show="$store.state.popOutMsgBasket != null" >

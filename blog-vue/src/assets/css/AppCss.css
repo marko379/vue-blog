@@ -52,18 +52,26 @@ html, body, #app {
 }
 
 .message-pop-out{
-  background-color: #ccffcc;
-/*   border: solid red;*/
-  width: 100%;
-  margin: auto;
-  top:50px;
-  text-align: center;
-  padding: 25px;
-  position: fixed;
+
+  background-color: #27ae60;        /* nice green */
+  color: white;                     /* text color */
+  padding: 15px 25px;               /* space around text */
+  border-radius: 8px;               /* rounded corners */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* subtle shadow */
+  font-family: sans-serif;          /* clean font */
+  font-size: 18px;                  /* readable size */
+  font-weight: bold;                /* stand out */
+  text-align: center;               /* center the text */
+  max-width: 90%;                   /* prevent too wide */
+  word-wrap: break-word;            /* wrap long text */
+    position: fixed;
   z-index: 7;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  animation-name: homepics;
+    top:50px;
+  text-align: center;
+  padding: 125px;
 }
+
+
 
 .message-pop-out-basket{
   background-color: #ccffcc;

@@ -128,8 +128,6 @@ export default {
 
             }
             else{
-                console.log(this.$refs['one'].$el)
-                // this.$refs['one'].$el.classList.remove('starr')
                 this.showMessagex()
             }
 

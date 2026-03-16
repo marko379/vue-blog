@@ -130,7 +130,7 @@
     <h1 class="title is-5 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{$store.state.showArticleTotalStars}}-ratings </h1>
 
 
-    <h1 class="title is-5 ratings-grade-paragraf-2" style="text-decoration: none; cursor: pointer;"
+    <h1 class="title is-5 ratings-grade-paragraf-2 rewies"
     @click="$emit('scroll-to-reviews')">
         {{ numOfComments }}-reviews
     </h1>
@@ -148,7 +148,19 @@
 
 <style lang="scss">
 
+.rewies{
+  text-decoration: none;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: #228B22;  /* underline color */
+  text-decoration-thickness: 2px; 
+  transition: color 0.3s, transform 0.2s;
+}
 
+.rewies:hover{
+      color: #27ae60;  
+      transform: scale(1.05);
+}
 
 .ratings-grade-paragraf-box{
     margin-left:2px;

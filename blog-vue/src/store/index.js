@@ -45,7 +45,7 @@ export default createStore({
         clearTimeout(state.message)
       }
       state.popOutMsg = msg
-      state.message = setTimeout(() => state.popOutMsg = null, 1900);        
+      state.message = setTimeout(() => state.popOutMsg = null, 2200);        
     },
     showMsgBasket(state,msg){
       if(state.messageBasket){
