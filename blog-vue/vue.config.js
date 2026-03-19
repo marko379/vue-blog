@@ -14,9 +14,7 @@ const path = require('path');
 module.exports = {
   outputDir: path.resolve(__dirname, '../blog/static/vue'),
   indexPath: path.resolve(__dirname, '../blog/templates/index.html'),
-
-  publicPath: '/',
-  filenameHashing: false,   // ⭐ IMPORTANT
-
+  publicPath: '/static/vue/',  
+  filenameHashing: false,
   transpileDependencies: true,
 };
