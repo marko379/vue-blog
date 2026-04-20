@@ -259,10 +259,11 @@ export default {
             if(userID){
                 axios.get(`/articles/user-stars/${userID}/${get_slug}/`).then(response => {
                     if(response.data == 'not rated'){
-                        this.$store.state.userStars = 'no stars given'
+                        this.$store.state.userStars = 'You haven’t rated this book yet'
                         this.$store.state.userStarsOnComment = 0
                     }else{
-                       this.$store.state.userStars = response.data[0].stars
+                       // this.$store.state.userStars = response.data[0].stars
+                        this.$store.state.userStars = 'Your ratings is'+  '    ' + response.data[0].stars
                        this.$store.state.userStarsOnComment = response.data[0].stars
                     }
                 }).catch(error => {console.log(error)})
@@ -282,13 +283,13 @@ export default {
 
         showRateMsg(value){
             if(value == 'not exists'){
-                this.$store.commit('showMsg','book unrated')
+                this.$store.commit('showMsg','Your rating has been removed')
             }
             if(value === 1){
                 this.$store.commit('showMsg','your rating: ' + value + ' star')
             }
             if(value > 1){
-                this.$store.commit('showMsg','your rating: ' + value + ' star')
+                this.$store.commit('showMsg','Your rating has been updated: ' + value + ' star')
             }
         },
 

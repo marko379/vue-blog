@@ -100,12 +100,6 @@ p{
   
 }
 
-.imagee{
-  width: 20%;
-  max-width: 290px;
-  position: fixed;
-
-}
 
 .title-container{
 /*  // display: flex;*/
@@ -124,41 +118,96 @@ p{
 }
 
 .imagee-2{
-/*  // border:solid red;*/
+  /*border:solid red;*/
   width:100%;
 }
+
+.imagee{
+  width: 20%;
+  max-width: 290px;
+  position: fixed;
+  top: 150px;
+  /*left: 20px;*/
+
+  z-index: 999;
+
+}
+
 
 .grey {
   color:   grey;
 }
-.comment-div-2{
-/*  // margin-bottom: 25px;*/
-  background-color: #f2f2f2;
-}
 
 .comment-container{
-/*  // border: solid green;*/
-  margin: auto;
+  /*border: solid green;*/
   width: 100%;
+  display: flex;            /* treat children as flexible items */
+  flex-direction: column;   /* stack them vertically */
+  gap: 20px;                /* space between each .comment-div */
+  padding: 5px;    
+
 }
 
-.comment-description{
-   line-height: 1.3;
+
+.comment-div{
+   background: linear-gradient(120deg, #E6FAF0, #CFF7DF);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 20px 20px 20px 20px;
+
 }
 
+.comment-description {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 600;
+  color: #6b6b6b;     /* soft grey, modern look */
+  letter-spacing: 0.2px;
+}
 .comment-content{
   margin: auto;
 /*  // border: solid;*/
 /*  // text-align: center;*/
   margin-top: 10px;
   margin-bottom: 3px;
-  background-color: #f2f2f2;
+  /*background-color: #f2f2f2;*/
 }
 
+.comment-description button {
+  font-size: 20px;
+  font-weight: 600;
+  color: #3B82F6;          /* green theme */
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin-top: 4px;
+  text-decoration: underline;
+  transition: color 0.2s;
+  margin-left: 20px;
+}
+
+
+
 .comment-first-container{
-/*  // border:solid;*/
+  /*border:solid;*/
   display: flex;
   justify-content: space-between;
+
+}
+
+.comment-username{
+  color: #1f6f43;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0.5px;
+}
+
+.comment-title {
+  font-size: 18px;        /* slightly bigger than comment text */
+  font-weight: 600;       /* strong but not too heavy */
+  color: #2a2a2a;         /* dark gray for readability */
+  margin-bottom: 6px;
 }
 
 .comment-stars{
@@ -199,6 +248,7 @@ p{
 .sticky{
   position: sticky;
   top: 20px;
+
 
 }
 .comment-div{

@@ -2,6 +2,7 @@
 
 <div class="main-article-container">
 
+
   <div class="imagee-2">
     <div class="imagee">
       <div class="pic">
@@ -100,10 +101,11 @@
         <div class="comment-container" ref="reviews">
           <div class="comment-div" v-for="(comment,index) in Comments" :key="comment.id">
 
+
             <div class="comment-first-container">
               <div>
                 <img :src="comment.user_photo" class="rounded-avatar">
-                <h1 class="title is-4">{{ comment.username }}</h1>                
+                <h1 class="comment-username">{{ comment.username }}</h1>                
               </div>
               <CommentStars class="comment-stars" v-show="comment.user_stars != 0" :s="comment.user_stars"/>
 
@@ -111,14 +113,15 @@
             </div>
 
             <div class="comment-content">
-              <h1 class="title is-5">{{ comment.title}}</h1>              
+              <h1 class="comment-title">{{ comment.title}}</h1>              
               <h1 class="subtitle is-5 comment-description">
                 <span :ref="`readLessCommentRef${comment.id}`" style="white-space: pre-line">{{comment.comment_1st_part }}</span>
                 <span :ref="`readMoreCommentRef${comment.id}`" class="aaa" style="white-space: pre-line">{{comment.comment_2nd_part }}</span>
-              <button class="button is-ghost" @click="readMoreComment(comment.id)" :ref="`readMoreCommentSpanRef${comment.id}`">read more</button>
-              <button class="button is-ghost aaa" @click="readLessComment(comment.id)" :ref="`readLessCommentSpanRef${comment.id}`">... read less</button>
+              <button class="" @click="readMoreComment(comment.id)" :ref="`readMoreCommentSpanRef${comment.id}`">read more</button>
+              <button class="aaa" @click="readLessComment(comment.id)" :ref="`readLessCommentSpanRef${comment.id}`">... read less</button>
               </h1>
             </div>
+
 
             <div class="thumbs-and-delete">
               <div class="thumbs">
@@ -157,7 +160,7 @@
             <span>{{checkIfUserLikeComment(comment.user_like_comment,$store.state.userId,comment.id)}}</span>
             <span>{{checkIfUserDislikeComment(comment.user_dislike_comment,$store.state.userId,comment.id)}}</span>
 
-            <hr>
+            
           </div>
         </div>
 

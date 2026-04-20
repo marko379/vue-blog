@@ -3,12 +3,13 @@
 <div id="app">
 
 
+
 <div class="nav-container">
 
 <nav class="my-nav">
 
   <div class="main-nav">
-      <router-link to="/home-page"><h1 class="title is-5 my-nav-link">Home</h1></router-link>
+      <router-link to="/home-page" class="router-link"><h1 class="title is-5 my-nav-link">Home</h1></router-link>
 
       <router-link to="/user-profile"><h1 class="title is-5 my-nav-link">Profile</h1></router-link>
 
@@ -37,8 +38,9 @@
       <!-- popout basket window  -->
       <div class="basket-container"  @mouseover="showBasket" @mouseleave="hideBasket">
         <div class="basket-icon">
-          <font-awesome-icon icon="fa-solid fa-cart-shopping" size="3x"/>
-          <h1 class="title is-2">{{$store.state.count}}</h1>  
+          <img v-show="$store.state.count == 0" src="https://res.cloudinary.com/dzxfhtmis/image/upload/v1775246300/m3glicprqil6hcsjrvju.png"  width="45" >
+          <img v-show="$store.state.count > 0" src="https://res.cloudinary.com/dzxfhtmis/image/upload/v1775246342/swxumgqkzflbdtyumktz.png"  width="45">
+          <h1 class="title is-2" style="color:#8B5E3C;"> {{$store.state.count}}</h1>  
         </div>
         <div class="popout-basket" v-show="basket">
           <div class="popout-basket-button" v-if="$store.state.totalPrice.toFixed(2) > 1">
@@ -92,12 +94,13 @@
     </div>
   </div>
 
-
   <div class="navbar-end" v-if="$store.state.userId == null">
     <div class="navbar-item">
       <div class="buttons">
-        <button class="button"><router-link to="/register"><h1 class="title is-5">Sing-up</h1></router-link></button>
-        <button class="button"><router-link to="/login"><h1 class="title is-5">Login</h1></router-link></button>
+        <!-- <button class="button"><router-link to="/register"><h1 class="title is-5">Sing-up</h1></router-link></button> -->
+        <div><router-link to="/register" class="btn">Sing-up</router-link></div>
+        <!-- <button class="button"><router-link to="/login"><h1 class="title is-5">Login</h1></router-link></button> -->
+        <div><router-link to="/login" class="btn">Login</router-link></div>
       </div>
     </div>
   </div>
@@ -143,7 +146,16 @@
 
 </nav>
 
+
 </div>
+
+<div class="quote-container">
+  <div class="quote">
+    “{{ currentQuote.text }}”
+    <span class="author">{{ currentQuote.author }}</span>
+  </div>
+</div>
+
 
 
 <div class="field has-addons search-container">
@@ -198,6 +210,49 @@ export default {
         l:[],
         price:0,
         user:true,
+        index:0,
+
+      quotes: [
+        { text: "A room without books is like a body without a soul.", author: "Cicero" },
+        { text: "I cannot live without books.", author: "Thomas Jefferson" },
+        { text: "Books are a uniquely portable magic.", author: "Stephen King" },
+        { text: "There is no friend as loyal as a book.", author: "Ernest Hemingway" },
+        { text: "A book is a dream you hold in your hand.", author: "Neil Gaiman" },
+        { text: "Books are the quietest and most constant of friends.", author: "Charles W. Eliot" },
+        { text: "So many books, so little time.", author: "Frank Zappa" },
+        { text: "A book is a gift you can open again and again.", author: "Garrison Keillor" },
+        { text: "Reading helps you rise above the ordinary.", author: "Jim Rohn" },
+        { text: "Books are the mirrors of the soul.", author: "Virginia Woolf" },
+        { text: "The more you read, the more you will know.", author: "Dr. Seuss" },
+        { text: "A good book is an event in my life.", author: "Stendhal" },
+        { text: "Books are the plane, the train, and the road.", author: "Anna Quindlen" },
+        { text: "Read widely or you’ll only think like others.", author: "Haruki Murakami" },
+        { text: "Books are my friends and companions.", author: "Christopher Morley" },
+        { text: "A house without books lacks windows.", author: "Horace Mann" },
+        { text: "Reading brings us unknown friends.", author: "Honoré de Balzac" },
+        { text: "Books are compasses and charts of the mind.", author: "Ralph Waldo Emerson" },
+        { text: "Paradise will be a kind of library.", author: "Jorge Luis Borges" },
+        { text: "Not reading books is worse than burning them.", author: "Joseph Brodsky" },
+        { text: "Books are the treasured wealth of the world.", author: "Henry David Thoreau" },
+        { text: "A great book leaves you with many experiences.", author: "Nadine Gordimer" },
+        { text: "Books transport us to new worlds.", author: "Unknown" },
+        { text: "Reading is exercise for the mind.", author: "Joseph Addison" },
+        { text: "A book is a garden carried in the pocket.", author: "Chinese Proverb" },
+        { text: "The world is a book; some read only one page.", author: "Augustine of Hippo" },
+        { text: "One glance at a book and you hear another voice.", author: "You Xia" },
+        { text: "A book is a version of the world.", author: "Susan Sontag" },
+        { text: "Books are the carriers of civilization.", author: "Barbara W. Tuchman" },
+        { text: "I love books. I adore everything about them.", author: "Lemony Snicket" },
+        { text: "Books are food for the soul.", author: "Unknown" },
+        { text: "Reading talks with the finest minds.", author: "Unknown" },
+        { text: "A good book is the best of friends.", author: "Martin Farquhar Tupper" },
+        { text: "Books are legacies from great minds.", author: "Joseph Addison" },
+        { text: "The book you don’t read won’t help.", author: "Jim Rohn" }
+      ]
+
+
+
+       
       }
     },
 
@@ -213,11 +268,22 @@ export default {
     }
   },
 
+  // computed reacts whenever value(index) inside of it change... thats how computed works...
+  //   A computed property: Depends on reactive data (like data, props, or other computed values)
+  // Recalculates only when those dependencies change
+  // Is cached (unlike methods)
+  computed: {
+    currentQuote() {
+      return this.quotes[this.index];
+    }
+  },
+
   mounted(){
       this.$store.state.userId = this.$cookies.get("userID");
       this.$store.state.userImage = localStorage.getItem('myPhoto')
       this.$store.state.username = this.$cookies.get("user-succsess");
       this.getBooks()
+      this.startQuotes();
   },
 
   methods: {
@@ -290,6 +356,12 @@ export default {
     },
     removeModalApp(){
       this.$refs.modalApp.classList.remove('is-active')
+    },
+
+    startQuotes() {
+      setInterval(() => {
+        this.index = (this.index + 1) % this.quotes.length;
+      }, 4000);
     }
 
   }

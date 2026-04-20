@@ -135,7 +135,7 @@
         {{ numOfComments }}-reviews
     </h1>
 
-    <h1 v-show="$store.state.userStars != null" class="title is-5 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">your-rate: {{$store.state.userStars}} <font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/></h1>
+    <h1 v-show="$store.state.userStars != null" class="title is-5 ratings-grade-paragraf-2" @mouseover="showStarsDatails" @mouseleave="removeStarsDatails">{{$store.state.userStars}}<font-awesome-icon icon="fa-solid fa-star" class="star-orange"  size="lg"/></h1>
 
 
 
@@ -149,6 +149,7 @@
 <style lang="scss">
 
 .rewies{
+    
   text-decoration: none;
   cursor: pointer;
   text-decoration: underline;
@@ -158,7 +159,7 @@
 }
 
 .rewies:hover{
-      color: #27ae60;  
+      color: black;  
       transform: scale(1.05);
 }
 
@@ -183,7 +184,7 @@
     margin-top: 3px;
     // margin-top: -17px;
     margin-left: 1em;
-    // border: solid;
+
     
 }
 
@@ -215,11 +216,11 @@
 .zz{
     // margin-right: 5px;
     // margin-left: 5px;
-  // background-color: #ffffff;
+  background-color: #ffffff;
   // width: 80%;
     margin-top: 4px;
   // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  // border: solid;
+
 }
 .aa{
 
@@ -247,14 +248,13 @@
 }
 
 .stars-container{
-    
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding-top: 19px;
     padding-bottom: 5px;
     width: 100%;
-    background-color:#DCDCDC;
+    background-color:white;
     border-radius: 8px;
 
 

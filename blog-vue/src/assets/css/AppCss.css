@@ -1,11 +1,118 @@
 
 /*@import '../node_modules/bulma';*/
 
-html, body, #app {
+
+  html, body, #app {
   min-height: 100vh;           /* full viewport height */
   background-color: #F5F5F5; /* soft white */
   color: #333;
 }
+
+.buttons{
+  display: flex;
+  gap: 15px;
+  
+}
+
+/* Style ONLY the button divs */
+.btn {
+  display: inline-block;
+  margin: 10px;
+  padding: 14px 30px;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.6);
+}
+
+/* Click effect */
+.btn:active {
+  transform: scale(0.97);
+}
+
+/* Header full screen */
+.top-header {
+  height: 120px;
+  background: linear-gradient(135deg, #D8B4FE, #818CF8);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.red-letter {
+  color: #2b2b2b;
+}
+
+.brand {
+  font-family: 'Pacifico', cursive;        /* Fun, handwritten style */
+  font-size: 4rem;                         /* Big header */
+  color: #F3E8FF;                          /* Soft, pale lavender */
+  text-align: center;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.2); /* Soft shadow for depth */
+}
+
+.brand img {
+  width: 100px;
+  height: auto;
+}
+
+/* Optional: separate styling if you want emphasis */
+.brand-book {
+  color: #ffffff;
+}
+
+.brand-hub {
+  color: #ffffff;
+  margin-left: 0.2em;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Icon */
+.logo-icon {
+  font-size: 22px;
+}
+
+/* Text */
+.logo-text {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Styling parts */
+.logo-read {
+  color: #ffffff;
+}
+
+.logo-space {
+  color: #E9D5FF; /* soft purple accent */
+  margin-left: 2px;
+}
+
 
 
 .logout-icon{
@@ -27,13 +134,47 @@ html, body, #app {
   display: flex;
   flex-wrap: wrap;
 
+
+
 }
+
+
+.quote {
+  font-size: 24px;
+  font-style: italic;
+  color: #2b2b2b;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 600px;
+
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+
+.author {
+  display: block;
+  margin-top: 10px;
+
+  font-size: 14px;
+  color: #e63946; /* modern red */
+
+  font-style: normal; /* remove italic if quote is italic */
+  font-weight: 600;
+
+  letter-spacing: 1px; /* spacing between letters */
+  text-transform: uppercase; /* ALL CAPS look */
+}
+
+
 
 .search-container{
   max-width: 700px;
-  margin: auto;
-  margin: 25px auto auto auto;
-
+  margin: 35px auto 0 auto;
+  transform: translateX(80px);
 }
 
 .user-username{
@@ -53,8 +194,9 @@ html, body, #app {
 
 .message-pop-out{
 
-  background-color: #27ae60;        /* nice green */
-  color: white;                     /* text color */
+  /*background-color: #E9D5FF; */ 
+  /*background-color: #F3F4F6;  */
+  background-color: #DBEAFE; 
   padding: 15px 25px;               /* space around text */
   border-radius: 8px;               /* rounded corners */
   box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* subtle shadow */
@@ -151,6 +293,10 @@ html, body, #app {
 /*   border:solid;*/
 }
 
+.basket-icon h1 {
+  margin-left: 5px; /* increase or decrease this value */
+}
+
 .popout-basket-image{
   width: 70px;
 }
@@ -167,24 +313,30 @@ html, body, #app {
 
 .nav-container{
   width: 100%;
-  background-color:  #ffcc66;
+  /*background-color: #E9D5FF;*/
+  background-color: #FBCFE8; 
   position: sticky;
   top: 0;
   z-index: 20;
+  /*border: solid;*/
 }
 
 
 .my-nav{
   display: flex;
   justify-content: space-around;
-/*   border: solid;*/
   flex-wrap: wrap;
   min-height: 65px;
   height: 100%;
   max-width: 1400px;
   margin: auto;
-  background-color:  #ffcc66;
+  background-color: #FBCFE8; 
+  /*border: solid;*/
+  /*background: linear-gradient(135deg, #F472B6, #FBCFE8);*/
+
 }
+
+
 
 .my-nav-link{
   margin-left: 10px;

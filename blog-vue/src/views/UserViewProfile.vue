@@ -1,7 +1,7 @@
 <template>
 
-<div v-show="username == ''">
-  <h1 class="title">Please login/register so that you can see your profile</h1>
+<div class="profile-not-found" v-show="username == ''">
+  <h1 class="title">Please login/register so that you can accsess your profile</h1>
 </div>
 
 <div v-show="username != ''" class="profile">
@@ -15,11 +15,6 @@
   </div>
 </div>
 
-
-<div>
-  <p>aaaaaaaaa</p>
-  <input type="file" @change="uploadImage" />
-</div>
 
 
 <div class="modal" ref="modalProfile">
@@ -49,6 +44,7 @@ body{
   background-color:#f2f2f2;
 }
 
+
 .profile{
   display: flex;
   flex-direction: column;
@@ -56,6 +52,28 @@ body{
   // border: solid;
   max-width: 250px;
 }
+
+.profile-not-found{
+  
+  display: flex;
+  justify-content: center; /* Horizontal center */
+  align-items: center;     /* Vertical center */
+}
+
+
+.profile-not-found h1{
+  font-size: 36px;                 /* bigger text */
+  font-weight: 600;                /* slightly bold */
+  letter-spacing: 1px;             /* spacing between letters */
+  color: #1e90ff;                  /* nice modern blue */
+  background: white;
+  padding: 25px 35px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+
+
 
 </style>
 
