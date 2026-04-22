@@ -2,6 +2,8 @@
 
 <div class="main-home">
 
+  <h3 class="my-title title is-5">Most Popular by Readers</h3>
+
   <div class="container-articles">
     <div v-for="article in Articles" :key="article.id" class="container box"> <!--  v-if="Articles.length % 2 !== 0" -->
         <router-link :to="{ name: 'article' ,  params: {slug: article.slug}}">
@@ -39,6 +41,15 @@ body {
   background-color: #F5F5F5;  /* White Smoke, soft on eyes */
   color: #333333;             /* Dark gray text for readability */
   font-family: 'Segoe UI', sans-serif;  /* optional modern font */
+}
+
+.my-title {
+  font-size: 42px;
+  font-weight: 700;
+  text-align: center;
+  color: #222;
+  margin: 20px 0;
+  letter-spacing: 1px;
 }
 
 .stars-home-view-container{
