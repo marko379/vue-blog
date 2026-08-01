@@ -24,7 +24,6 @@ class LatestProductsList(APIView):
 class Articlee(APIView):
     def get(self, request, slug):
         articless = Article.objects.get(slug=slug)
-        # comments = Comments.objects.filter(article=articless)
         serializer = ArticleSerializer(articless)
         return Response(serializer.data)
 
@@ -61,9 +60,6 @@ def BookForCarousel(request):  # use APIview or function based view or any view 
         genre2 = request.GET.get('genre2', '')
         exclude_slug = request.GET.get('exclude_book_slug')
 
-
-        # queryset = Article.objects.filter(
-        # Q(category__name__icontains=genre1) | Q(category__name__icontains=genre2)).distinct()[:9].
         queryset = Article.objects.filter(
             Q(category__name__icontains=genre1) |
             Q(category__name__icontains=genre2)
@@ -120,7 +116,6 @@ def PublishComment(request):  # use APIview or function based view or any view u
 # here you are reciving values from rate_it_stars.html (book_id and num that represents value)
 @api_view(['POST'])
 def UpdateUserStars(request):
-    # check forum 4 with coments to see explanation if u forget how code below works 
     if request.method == 'POST':
         stars = request.data['num']
         stars = int(stars)

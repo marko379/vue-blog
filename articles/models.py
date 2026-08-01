@@ -85,8 +85,6 @@ class Books_in_Basket(models.Model):
 		return self.basket.slug
 
 	def image_path(self):
-		# return 'http://127.0.0.1:8000' + self.basket.image.url
-		# return 'https://vue-blog-production.up.railway.app' + self.basket.image.url
 		return self.image.url if self.image else '/static/img/no-image.jpg'
 
 

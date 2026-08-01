@@ -59,8 +59,6 @@ class MyUserModel(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	def user_profile_photo(self):
 		self.user_img.url
-		# return 'http://127.0.0.1:8000' + self.user.user_photo.user_img.url
-		# return 'https://vue-blog-production.up.railway.app' + self.user.user_photo.user_img.url
 
 	def user_profile_username(self):
 		return self.user.username

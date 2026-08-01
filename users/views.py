@@ -1,27 +1,17 @@
-from rest_framework.generics import ListAPIView
-from rest_framework import serializers
 from django.db.models import Q
-from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from .serializers import RegisterSerilizer,UserSerializer,UserViewSerializer,User_photoSerilizer
-from django.contrib.auth.password_validation import validate_password
+from .serializers import RegisterSerilizer,UserViewSerializer,User_photoSerilizer
 from django.http import HttpResponse
-from django.shortcuts import render,redirect
-from django.conf import settings
-from django.contrib.auth import authenticate, login,logout
+from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from .models import User_photo,MyUserModel,Exe
+from .models import User_photo,Exe
 from .forms import Create_User, User_photo_form
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-from django.contrib.sessions.models import Session
-from PIL import Image
-from io import BytesIO
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.files.storage import default_storage
 from rest_framework import status
 
 
@@ -91,9 +81,6 @@ def login_api(request):
         return HttpResponse('UserNone')
 
 
-
-
-# @api_view(['GET'])
 class UserView(APIView):
     permission_classes = (IsAuthenticated,)
     def get(self, request):

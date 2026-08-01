@@ -44,7 +44,6 @@ class BookInBasketSerializer(serializers.ModelSerializer):
         )
 
 class UserStarsSerializer(serializers.ModelSerializer):
-    # tracks = serializers.StringRelatedField(many=True)
     class Meta:
         model = Users_stars
         fields = (
@@ -54,7 +53,6 @@ class UserStarsSerializer(serializers.ModelSerializer):
         )
 
 class ShowArticleStarsSerializer(serializers.ModelSerializer):
-    # tracks = serializers.StringRelatedField(many=True)
     class Meta:
         model = Rating_star_system
         fields = (
@@ -95,6 +93,4 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "name",
-            # "get_absolute_url",
-            # "products",
         )
