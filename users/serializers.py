@@ -25,14 +25,12 @@ class RegisterSerilizer(serializers.ModelSerializer):
         }
 
     def create(self,validated_data):
-        # print(validated_data,'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu')
         password = validated_data.get('password')
         # print(self.Meta.model) # returns user class
         instance = self.Meta.model(**validated_data)
         if password and instance:
             instance.set_password(password)
             instance.save()
-            # print(instance.user_photo.user.username,'0000000000000000000000000000')
         return redirect ('http://localhost:8080/')
 
 

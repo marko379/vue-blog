@@ -182,6 +182,3 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication', 
     ]
 }
-
-
-print('HELLO WORLD')

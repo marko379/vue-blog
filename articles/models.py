@@ -120,7 +120,6 @@ class Comments(models.Model):
 		if self.user:
 			return self.user.user_photo.user_img.url
 		else:
-			print('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
 			return 'https://vue-blog-production.up.railway.app' + settings.MEDIA_URL  + 'avatar.png'
 
 	def datepublished(self):

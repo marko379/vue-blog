@@ -19,7 +19,6 @@ class LatestProductsList(APIView):
             # when is returned you can accsess those data in vue template
             return Response(serializer.data)
         except Exception as e:
-            print("Error in articles_list:", str(e))  # log to Railway logs
             return Response({"error": str(e)}, status=500)
 
 class Articlee(APIView):
@@ -70,9 +69,6 @@ def BookForCarousel(request):  # use APIview or function based view or any view 
             Q(category__name__icontains=genre2)
             ).exclude(slug=exclude_slug)
         queryset = queryset.distinct()[:9]
-
-        print(queryset)
-
         serializer = ArticleSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -124,7 +120,6 @@ def PublishComment(request):  # use APIview or function based view or any view u
 # here you are reciving values from rate_it_stars.html (book_id and num that represents value)
 @api_view(['POST'])
 def UpdateUserStars(request):
-    # print(request.data) # <QueryDict: {'num': ['2'], 'slug': ['samsung-s22'], 'userID': ['null']}>
     # check forum 4 with coments to see explanation if u forget how code below works 
     if request.method == 'POST':
         stars = request.data['num']
