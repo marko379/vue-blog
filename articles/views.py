@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Article,Comments,Rating_star_system,Users_stars,Books_in_Basket
-from .serializers import ArticleSerializer, Comments_Serializer,BookInBasketSerializer,Show_Article_Stars_Serializer,BookInBasketSerializer
+from .serializers import ArticleSerializer, CommentsSerializer,BookInBasketSerializer,ShowArticleStarsSerializer,BookInBasketSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import  Count
@@ -33,7 +33,7 @@ class ShowComments(APIView):
     def get(self, request, get_comments):
         articless = Article.objects.get(slug=get_comments)
         comments = Comments.objects.filter(article=articless).annotate(num_authors=Count('comment_likes')).order_by('-num_authors')
-        serializer = Comments_Serializer(comments, many=True)
+        serializer = CommentsSerializer(comments, many=True)
         return Response(serializer.data)
 
 class ShowUserStars(APIView):
@@ -81,7 +81,7 @@ class ShowArticleStars(APIView):
     def get(self, request,slug):
         articless = Article.objects.get(slug=slug)
         rating_star_system = Rating_star_system.objects.get(star=articless)
-        serializer = Show_Article_Stars_Serializer(rating_star_system)
+        serializer = ShowArticleStarsSerializer(rating_star_system)
         return Response(serializer.data)
 
 @api_view(['POST'])

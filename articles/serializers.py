@@ -43,7 +43,7 @@ class BookInBasketSerializer(serializers.ModelSerializer):
             "image_path"
         )
 
-class BookInBasketSerializer(serializers.ModelSerializer):
+class UserStarsSerializer(serializers.ModelSerializer):
     # tracks = serializers.StringRelatedField(many=True)
     class Meta:
         model = Users_stars
@@ -53,7 +53,7 @@ class BookInBasketSerializer(serializers.ModelSerializer):
             'article'
         )
 
-class Show_Article_Stars_Serializer(serializers.ModelSerializer):
+class ShowArticleStarsSerializer(serializers.ModelSerializer):
     # tracks = serializers.StringRelatedField(many=True)
     class Meta:
         model = Rating_star_system
@@ -64,7 +64,7 @@ class Show_Article_Stars_Serializer(serializers.ModelSerializer):
         )
 
 
-class  Comments_Serializer(serializers.ModelSerializer):
+class  CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = (
@@ -87,7 +87,7 @@ class  Comments_Serializer(serializers.ModelSerializer):
             "user_stars"
         )
 
-class Category_Serializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     articles = ArticleSerializer(many=True)
 
     class Meta:
