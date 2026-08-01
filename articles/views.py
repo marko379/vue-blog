@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Article,Comments,Rating_star_system,Users_stars,Books_in_Basket
-from .serializers import ArticleSerializer, Comments_Serializer,Show_User_Stars_Serializer,Show_Article_Stars_Serializer,BookInBasketSerializer
+from .serializers import ArticleSerializer, Comments_Serializer,BookInBasketSerializer,Show_Article_Stars_Serializer,BookInBasketSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import  Count
@@ -42,7 +42,7 @@ class ShowUserStars(APIView):
             articless = Article.objects.get(slug=get_slug)
             user = User.objects.get(id=userID)
             stars = Users_stars.objects.filter(article=articless,user=user)
-            serializer = Show_User_Stars_Serializer(stars, many=True)
+            serializer = BookInBasketSerializer(stars, many=True)
             if not serializer.data:
                 return Response('not rated')
             else:

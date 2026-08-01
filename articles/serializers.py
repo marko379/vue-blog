@@ -43,7 +43,7 @@ class BookInBasketSerializer(serializers.ModelSerializer):
             "image_path"
         )
 
-class Show_User_Stars_Serializer(serializers.ModelSerializer):
+class BookInBasketSerializer(serializers.ModelSerializer):
     # tracks = serializers.StringRelatedField(many=True)
     class Meta:
         model = Users_stars
