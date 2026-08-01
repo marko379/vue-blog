@@ -1,10 +1,9 @@
-
 from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Article,Comments,Rating_star_system,Users_stars,Books_in_Basket
-from .serializers import Article_Serializer, Comments_Serializer,Show_User_Stars_Serializer,Show_Article_Stars_Serializer,Book_in_Basket_Serializer
+from .serializers import ArticleSerializer, Comments_Serializer,Show_User_Stars_Serializer,Show_Article_Stars_Serializer,BookInBasketSerializer
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import  Count
@@ -16,7 +15,7 @@ class LatestProductsList(APIView):
         try:
             articles = Article.objects.all()
             # get all articles with your serializer 
-            serializer = Article_Serializer(articles, many=True)
+            serializer = ArticleSerializer(articles, many=True)
             # when is returned you can accsess those data in vue template
             return Response(serializer.data)
         except Exception as e:
@@ -27,7 +26,7 @@ class Articlee(APIView):
     def get(self, request, slug):
         articless = Article.objects.get(slug=slug)
         # comments = Comments.objects.filter(article=articless)
-        serializer = Article_Serializer(articless)
+        serializer = ArticleSerializer(articless)
         return Response(serializer.data)
 
 class ShowComments(APIView):
@@ -52,7 +51,7 @@ class ShowUserStars(APIView):
 class BookByGenres(APIView):
     def get(self, request, genre):
         articless = Article.objects.filter(category__name=genre)
-        serializer = Article_Serializer(articless,many=True)
+        serializer = ArticleSerializer(articless,many=True)
         return Response(serializer.data)
 
 
@@ -74,7 +73,7 @@ def BookForCarousel(request):  # use APIview or function based view or any view 
 
         print(queryset)
 
-        serializer = Article_Serializer(queryset, many=True)
+        serializer = ArticleSerializer(queryset, many=True)
         return Response(serializer.data)
 
 
@@ -248,7 +247,7 @@ class search_book(APIView):
             Q(name__icontains=titles[6]) &
             Q(name__icontains=titles[7]) 
         )
-        serializer = Article_Serializer(queryset, many=True)
+        serializer = ArticleSerializer(queryset, many=True)
         return Response(serializer.data)
 
 
@@ -322,7 +321,7 @@ def ReturnBasket(request):
         user = User.objects.get(id=user_id)
         b = Books_in_Basket.objects.filter(user=user)
 
-        serializer = Book_in_Basket_Serializer(b, many=True)
+        serializer = BookInBasketSerializer(b, many=True)
 
         return Response(serializer.data)
 

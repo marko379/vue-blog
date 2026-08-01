@@ -4,7 +4,7 @@ from .models import Category, Article, Comments,Users_stars , Rating_star_system
 
 
 # this willl be returned in views as """"return Response(serializer.data)""""
-class Article_Serializer(serializers.ModelSerializer):
+class ArticleSerializer(serializers.ModelSerializer):
     tracks = serializers.StringRelatedField(many=True)
     image_path = serializers.SerializerMethodField()  # new
     class Meta:
@@ -30,7 +30,7 @@ class Article_Serializer(serializers.ModelSerializer):
     def get_image_path(self, obj): # new
         return obj.image_path()
 
-class Book_in_Basket_Serializer(serializers.ModelSerializer):
+class BookInBasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Books_in_Basket
         fields = (
@@ -88,7 +88,7 @@ class  Comments_Serializer(serializers.ModelSerializer):
         )
 
 class Category_Serializer(serializers.ModelSerializer):
-    articles = Article_Serializer(many=True)
+    articles = ArticleSerializer(many=True)
 
     class Meta:
         model = Category
