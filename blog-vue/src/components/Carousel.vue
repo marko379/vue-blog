@@ -221,7 +221,7 @@ export default {
       buttonRight(){
         const width = this.$refs.carousel.scrollWidth
         if(window.innerWidth > 1300 ){
-          if((this.count >= -570)){
+          if((this.count >= -569)){
             this.count = this.count - 570  
             this.$refs['carousel'].style.transform = `translateX(${this.count}px)`;
           }

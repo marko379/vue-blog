@@ -11,12 +11,12 @@
   <div class="main-nav">
       <router-link to="/home-page" class="router-link"><h1 class="title is-5 my-nav-link">Home</h1></router-link>
 
-      <router-link to="/user-profile"><h1 class="title is-5 my-nav-link">Profile</h1></router-link>
+      <router-link to="/user-profile" class="router-link"><h1 class="title is-5 my-nav-link">Profile</h1></router-link>
 
 
       <!-- categories -->
       <div class="dropdown is-hoverable ">
-        <div class="dropdown-trigger">
+        <div class="dropdown-trigger router-link">
            <h1 class="title is-5 my-nav-link"><font-awesome-icon icon="fa-solid fa-arrow-down" /> Categories</h1>
         </div>
         <div class="dropdown-menu" id="dropdown-menu4" role="menu">
@@ -38,9 +38,9 @@
       <!-- popout basket window  -->
       <div class="basket-container"  @mouseover="showBasket" @mouseleave="hideBasket">
         <div class="basket-icon">
-          <img v-show="$store.state.count == 0" src="https://res.cloudinary.com/dzxfhtmis/image/upload/v1775246300/m3glicprqil6hcsjrvju.png"  width="45" >
-          <img v-show="$store.state.count > 0" src="https://res.cloudinary.com/dzxfhtmis/image/upload/v1775246342/swxumgqkzflbdtyumktz.png"  width="45">
-          <h1 class="title is-2" style="color:#8B5E3C;"> {{$store.state.count}}</h1>  
+          <img v-show="$store.state.count == 0" src="https://res.cloudinary.com/dzxfhtmis/image/upload/v1778173671/yyafptfnnol8l5jq0yhy.png"  width="67" >
+          <img v-show="$store.state.count > 0" src="https://res.cloudinary.com/dzxfhtmis/image/upload/v1778173671/yyafptfnnol8l5jq0yhy.png"  width="67">
+          <h1 class="title is-2 marko"> {{$store.state.count}}</h1>  
         </div>
         <div class="popout-basket" v-show="basket">
           <div class="popout-basket-button" v-if="$store.state.totalPrice.toFixed(2) > 1">
@@ -59,7 +59,7 @@
                 </div>
                 <div>
                   <p class="basket-paragraf-price">£{{item['price']}}</p>
-                  <button class="button is-small is-danger is-rounded remove-button-basket" @click="removeFromBasket(index,item['slug']); subtractPrice(item['price']); removeBookPopUpMsg()">remove</button>  
+                  <button class="button is-small is-danger is-rounded remove-button-basket" @click="removeFromBasket(index,item['slug']); subtractPrice(item['price']); removeBookFromBasketMsg()">remove</button>  
                 </div>
               </div>
               <hr>
@@ -92,6 +92,10 @@
         <button class="button is-danger is-outlined" @click="removeModalApp">Cancel</button>
       </footer>
     </div>
+  </div>
+
+  <div class="modern-basket">
+    cart
   </div>
 
   <div class="navbar-end" v-if="$store.state.userId == null">
@@ -129,11 +133,13 @@
     </div>
   </div>
 
-
+  <div class="message-remove-from-basket" v-show="$store.state.popOutMsgFromBasket != null">
+     <h1 class="title is-3">{{$store.state.popOutMsgFromBasket}}</h1>
+  </div> 
 
   <div class="message-pop-out" v-show="$store.state.popOutMsg != null">
      <h1 class="title is-3">{{$store.state.popOutMsg}}</h1>
-  </div>
+  </div> 
 
   <div class="message-pop-out-basket" v-show="$store.state.popOutMsgBasket != null" >
      <h1 class="title is-4 " >{{$store.state.count}}-{{$store.state.popOutMsgBasket}}</h1>
@@ -318,6 +324,9 @@ export default {
     },
     removeBookPopUpMsg(){
       this.$store.commit('showMsg','book removed from the basket')
+    },
+    removeBookFromBasketMsg(){
+      this.$store.commit('showMsgRemoveFromBasket','book removed from the basket')
     },
     getBooks(){
         var self = this

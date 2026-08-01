@@ -11,8 +11,28 @@
 .buttons{
   display: flex;
   gap: 15px;
-  
+  }
+
+.marko{
+  transform: translateX(-39px);
+  color:#8B5E3C;
 }
+
+
+.modern-basket {
+    font-size: 17px;
+    font-weight: 800;
+    font-family: Arial, sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #000;
+    margin-top: 45px;
+    position: relative;
+    right: 20px;
+}
+
+
+
 
 /* Style ONLY the button divs */
 .btn {
@@ -134,9 +154,8 @@
   display: flex;
   flex-wrap: wrap;
 
-
-
 }
+
 
 
 .quote {
@@ -217,7 +236,6 @@
 
 .message-pop-out-basket{
   background-color: #ccffcc;
-/*   border: solid red;*/
   width: 100%;
   margin: auto;
   top:50px;
@@ -227,6 +245,29 @@
   z-index: 7;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   animation-name: homepics;
+}
+
+.message-remove-from-basket{
+
+
+  /*background-color: #E9D5FF; */ 
+  /*background-color: #F3F4F6;  */
+  background-color: #DBEAFE; 
+  padding: 15px 25px 27px 150px;               /* space around text */
+  border-radius: 8px;               /* rounded corners */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* subtle shadow */
+  font-family: sans-serif;          /* clean font */
+  font-size: 18px;                  /* readable size */
+  font-weight: bold;                /* stand out */
+  text-align: center;               /* center the text */
+  max-width: 90%;                   /* prevent too wide */
+  word-wrap: break-word;            /* wrap long text */
+    position: fixed;
+  z-index: 7;
+    top:0px;
+  left:755px;
+  text-align: center;
+
 }
 
 .message-payment{
@@ -265,22 +306,58 @@
   margin: auto;
 }
 
-.popout-basket{
+/*.popout-basket{
   max-width: 370px;
   min-width: 350px;
   max-height: 800px;
   min-height: 370px;
   margin-top:1px;
-/*   margin-left: -120px;*/
-  border: solid 3px #005c99;
   border-radius: 5px;
   position: absolute;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 3) 0px 5px 20px;
   z-index: 5;
   overflow: scroll;
-/*   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
 }
+*/
+.popout-basket{
+  max-width: 370px;
+  min-width: 350px;
+  max-height: 800px;
+  min-height: 370px;
+  margin-top:1px;
+
+  border-radius: 14px;
+  position: absolute;
+
+  background: #ffffff;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+
+  z-index: 5;
+  overflow: auto;
+
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  color: #111;
+
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+.popout-basket::before {
+  content: "";
+  position: absolute;
+  top: -10px;   /* sits above the box */
+  right: 20px;  /* adjust position (align with button) */
+
+  width: 0;
+  height: 0;
+
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #ffffff; /* same as background */
+}
+
 
 .popout-basket-button{
   position: sticky;
@@ -336,22 +413,23 @@
 
 }
 
-
+.router-link{
+  /*transform: translateY(10px);*/
+}
 
 .my-nav-link{
   margin-left: 10px;
   padding-right:10px ;
   padding-left:10px ;
-  padding-top: 17px;
-/*   border: solid red;*/
+  padding-top: 25px;
+   /*border: solid red;*/
   height: 100%;
-/*   width: 100%;*/
+   width: 100%;
 }
 
 .my-nav-link:hover {
-  background-color: white;
+  background-color: #F472B6;
 }
-
 .navbar-link:hover{
   background-color: white;
 }

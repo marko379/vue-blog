@@ -95,9 +95,12 @@ export default {
     methods: {
         submitCommentForm() {
             if (this.title.length < 5 || this.comment.length < 5){
-                this.errors.push('Title and comment content have to have at least 5 character each')
-                this.title = ''
-                this.comment = ''
+                this.errors.push('Title and comment must have at least 5 characters');
+
+                setTimeout(() => {
+                  this.clearCommentFields();
+                  this.errors = [];
+                }, 2000);
             }
             if (this.title.length > 4 || this.comment.length > 4) {
                 let thiss = this

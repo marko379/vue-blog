@@ -84,13 +84,10 @@
         <hr>
         <!-- @carouselBook="callback" -->
         <Carousel :genres="Article.categories" />  
-
-        <h3 class="title is-3">Ratings & Reviews</h3>
-
-
         <hr>
 
         <div class="Comment-Component">
+            <h1 class="title is-4">Leave a comment</h1>
           <!-- remember u are passing props from here to CommentComponent (child component) -->
           <!-- remember u are triggering also emit over here  @myComment="publish" -->
             <CommentComponent :slugg="Article.slug"  @close="toggleModel" @myComment="publish"/>
@@ -425,7 +422,11 @@ export default {
         data.append('comment_id', comment_id)
         axios.post("articles/delete-comment/",data).
         then(response =>{console.log('succsess')}).catch(error => {console.log(error)})
+        this.removedCommentMsg()
       }
+    },
+    removedCommentMsg(){
+      this.$store.commit('showMsg','Comment is removed successfully')
     },
     showModal(){
       this.$refs.modal.classList.add('is-active')

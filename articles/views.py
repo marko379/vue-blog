@@ -1,19 +1,13 @@
-from django.shortcuts import render
+
 from django.db.models import Q
-from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from django.http import HttpResponse
-from .models import Article, Category,Comments,Rating_star_system,Users_stars,Books_in_Basket
-from users.models import User_photo
-from .serializers import Article_Serializer, Category_Serializer, Comments_Serializer,Show_User_Stars_Serializer,Show_Article_Stars_Serializer,Book_in_Basket_Serializer
-from django.http import JsonResponse
+from .models import Article,Comments,Rating_star_system,Users_stars,Books_in_Basket
+from .serializers import Article_Serializer, Comments_Serializer,Show_User_Stars_Serializer,Show_Article_Stars_Serializer,Book_in_Basket_Serializer
 from django.contrib.auth.models import User
-from rest_framework.renderers import JSONRenderer
-import json
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Avg, Count, Min, Sum
+from django.db.models import  Count
 
 
 class LatestProductsList(APIView):
@@ -60,28 +54,6 @@ class BookByGenres(APIView):
         articless = Article.objects.filter(category__name=genre)
         serializer = Article_Serializer(articless,many=True)
         return Response(serializer.data)
-
-# @api_view(['POST'])
-# def BookForCarousel(request):  # use APIview or function based view or any view u want
-#     if request.method == 'POST':
-
-#         answers_list = list(request.POST)
-#         num = 0
-#         while len(answers_list) <= 3:
-#             add_value = answers_list[num]
-#             answers_list.append(add_value)
-#             num = num + 1 
-        
-
-#         queryset = Article.objects.filter(
-#             Q(category__name__icontains=answers_list[0]) |
-#             Q(category__name__icontains=answers_list[1]) |
-#             Q(category__name__icontains=answers_list[2]) 
-#         ).distinct()[:9]
-
-#         serializer = Article_Serializer(queryset, many=True)
-
-#         return Response(serializer.data)
 
 
 @api_view(['GET'])

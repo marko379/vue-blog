@@ -5,6 +5,7 @@ export default createStore({
     basketList:[],
     totalPrice:0,
     popOutMsg:null,
+    popOutMsgFromBasket:null,
     popOutMsgBasket:null,
     bookAvergeRating:null,
     showArticleTotalStars:null,
@@ -14,7 +15,8 @@ export default createStore({
     userImage: null,
     messageBasket:null,
     message:null,
-    paymentMessage:false
+    paymentMessage:false,
+    xxxx:'hello'
 
   },
   getters: {
@@ -47,6 +49,13 @@ export default createStore({
       state.popOutMsg = msg
       state.message = setTimeout(() => state.popOutMsg = null, 2200);        
     },
+    showMsgRemoveFromBasket(state,msg){
+      if(state.popOutMsgFromBasket){
+        clearTimeout(state.message)
+      }
+      state.popOutMsgFromBasket = msg
+      state.message = setTimeout(() => state.popOutMsgFromBasket = null, 2200);        
+    },
     showMsgBasket(state,msg){
       if(state.messageBasket){
         clearTimeout(state.messageBasket)
@@ -58,6 +67,9 @@ export default createStore({
       state.paymentMessage = true
       setTimeout(() => state.paymentMessage = false, 4800);  
       // state.paymentMessage = setTimeout(() => state.paymentMessage = false, 1800);    
+    },
+    console(state,xxxx){
+      state
     },
 
   },
