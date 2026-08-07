@@ -23,6 +23,8 @@ class Category(models.Model):
 
 
 
+
+
 class Article(models.Model):
 	# category = models.ForeignKey(Category, related_name='article', on_delete=models.CASCADE)
 	writer = models.CharField(max_length=70,null=True)
@@ -62,10 +64,17 @@ class Article(models.Model):
 	def categories(self):
 		return self.category.all().values_list('name', flat=True)
 		
-
-	def save(self):
+	# this method is special method and is executed automatilly when article is created
+	# coz save() is a method that already exists on Django's Model class.
+	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
-		super().save()
+
+		update_fields = kwargs.get("update_fields")
+		# If someone updates the article name, make sure the slug is updated too.
+		if update_fields is not None and "name" in update_fields:
+			kwargs["update_fields"] = set(update_fields) | {"slug"}
+
+		super().save(*args, **kwargs)
 
 
 class Books_in_Basket(models.Model):
